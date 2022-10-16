@@ -23,8 +23,12 @@ public class StoreService {
         return stores.map(StoreDTO::new);
     }
 
-    public StoreDTO find(Long id) {
+    protected Store findById(Long id) {
         Optional<Store> obj = repository.findById(id);
-        return new StoreDTO(obj.orElseThrow(() -> new ObjectNotFoundException(id, Store.class)));
+        return obj.orElseThrow(() -> new ObjectNotFoundException(id, Store.class));
+    }
+
+    public StoreDTO findByIdDTO(Long id) {
+        return new StoreDTO(findById(id));
     }
 }

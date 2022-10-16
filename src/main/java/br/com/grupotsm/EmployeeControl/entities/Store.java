@@ -3,7 +3,9 @@ package br.com.grupotsm.EmployeeControl.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_store")
@@ -15,12 +17,17 @@ public class Store implements Serializable {
     private Long id;
     private String name;
 
+    private int type;
+
+    @OneToMany(mappedBy = "store")
+    private Set<Employee> employees = new HashSet<>();
     public Store() {
     }
 
-    public Store(Long id, String name) {
+    public Store(Long id, String name, int type) {
         this.id = id;
         this.name = name;
+        this.type = type;
     }
 
     public Long getId() {
@@ -39,17 +46,28 @@ public class Store implements Serializable {
         this.name = name;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Store loja = (Store) o;
-        return id.equals(loja.id);
+        Store obj = (Store) o;
+        return id.equals(obj.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }

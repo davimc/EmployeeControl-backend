@@ -24,6 +24,6 @@ public class StoreResource {
     }
     @GetMapping(value = "{id}")
     public ResponseEntity<StoreDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(service.find(id));
+        return ResponseEntity.ok().body(service.findByIdDTO(id));
     }
 }
