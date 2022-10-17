@@ -17,28 +17,30 @@ public class Shift implements Serializable {
     private LocalDate dtStart;
     private LocalDate dtEnd;
 
+    @ManyToOne
+    @JoinColumn(name = "store_id")
     private Store store;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_lincese_id")
     private Employee generatingEmployee;
+    @ManyToOne
+    @JoinColumn(name = "employee_assigned_id")
     private Employee assignedEmployee;
 
+    @ManyToOne
+    @JoinColumn(name = "license_id")
     private License license;
 
-    public Shift(Long id, LocalDate dtStart, LocalDate dtEnd, Store store, Employee generatingEmployee, Employee assignedEmployee) {
-        this.id = id;
-        this.dtStart = dtStart;
-        this.dtEnd = dtEnd;
-        this.store = store;
-        this.generatingEmployee = generatingEmployee;
-        this.assignedEmployee = assignedEmployee;
+    public Shift() {
     }
 
-    public Shift(Long id, LocalDate dtStart, LocalDate dtEnd, Store store, Employee generatingEmployee, Employee assignedEmployee, License license) {
+    public Shift(Long id, LocalDate dtStart, LocalDate dtEnd, Store store, Employee generatingEmployee, License license) {
         this.id = id;
         this.dtStart = dtStart;
         this.dtEnd = dtEnd;
         this.store = store;
         this.generatingEmployee = generatingEmployee;
-        this.assignedEmployee = assignedEmployee;
         this.license = license;
     }
 
