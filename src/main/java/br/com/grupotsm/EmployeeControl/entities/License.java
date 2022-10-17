@@ -1,10 +1,11 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
-import br.com.grupotsm.EmployeeControl.entities.enums.LicenseType;
+import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_license")
@@ -18,7 +19,8 @@ public class License implements Serializable {
     private LocalDate dtStart;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private LocalDate dtEnd;
-    private int type;
+    private int reason;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -27,11 +29,12 @@ public class License implements Serializable {
     public License() {
     }
 
-    public License(Long id, LocalDate dtStart, LocalDate dtEnd, LicenseType type, Employee employee) {
+    public License(Long id, LocalDate dtStart, LocalDate dtEnd, ReasonType reason, String description, Employee employee) {
         this.id = id;
         this.dtStart = dtStart;
         this.dtEnd = dtEnd;
-        this.type = type.getPeriodSuggestion();
+        this.reason = reason.getPeriodSuggestion();
+        this.description = description;
         this.employee = employee;
     }
 
@@ -59,15 +62,28 @@ public class License implements Serializable {
         this.dtEnd = dtEnd;
     }
 
-    public LicenseType getType() {
-        return LicenseType.toEnum(type);
+    public ReasonType getReason() {
+        return ReasonType.toEnum(reason);
     }
 
-    public void setType(LicenseType type) {
-        this.type = type.getPeriodSuggestion();
+    public void setReason(ReasonType reason) {
+        this.reason = reason.getPeriodSuggestion();
     }
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        License license = (License) o;
+        return id.equals(license.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

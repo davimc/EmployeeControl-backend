@@ -1,16 +1,16 @@
 package br.com.grupotsm.EmployeeControl.entities.enums;
 
-public enum LicenseType {
+public enum ReasonType {
 
-    ABSCENSE(1, "Ausência"),
-    CERTIFICATE (2, "Atestado"),
-    PATERNITY(5, "Paternidade"),
-    VACATION (30, "Férias"),
-    MATERNITY (120, "Maternidade");
+    ABSCENSE(1,"Ausência"),
+    CERTIFICATE(2,"Atestado"),
+    PATERNITY(5,"Paternidade"),
+    VACATION(30,"Férias"),
+    MATERNITY(120,"Maternidade");
 
     private int periodSuggestion;
     private String description;
-    LicenseType(int periodSuggestion, String description) {
+    ReasonType(int periodSuggestion, String description) {
         this.periodSuggestion = periodSuggestion;
         this.description = description;
     }
@@ -31,11 +31,11 @@ public enum LicenseType {
         this.description = description;
     }
 
-    public static LicenseType toEnum(Integer cod) {
+    public static ReasonType toEnum(Integer cod) {
         if(cod == null) return null;
-        for(LicenseType l: LicenseType.values())
+        for(ReasonType l: ReasonType.values())
             if(cod.equals(l.getPeriodSuggestion()))
                 return l;
-        throw new IllegalArgumentException("Licença inválida");
+        throw new IllegalArgumentException("Motivo inválido");
     }
 }
