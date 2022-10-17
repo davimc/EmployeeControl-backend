@@ -1,6 +1,6 @@
 package br.com.grupotsm.EmployeeControl.resources;
 
-import br.com.grupotsm.EmployeeControl.dto.StoreDTO;
+import br.com.grupotsm.EmployeeControl.dto.store.StoreDTO;
 import br.com.grupotsm.EmployeeControl.services.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

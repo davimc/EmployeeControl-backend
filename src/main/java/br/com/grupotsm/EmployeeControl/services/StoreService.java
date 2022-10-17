@@ -1,6 +1,6 @@
 package br.com.grupotsm.EmployeeControl.services;
 
-import br.com.grupotsm.EmployeeControl.dto.StoreDTO;
+import br.com.grupotsm.EmployeeControl.dto.store.StoreDTO;
 import br.com.grupotsm.EmployeeControl.entities.Store;
 import br.com.grupotsm.EmployeeControl.repositories.StoreRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
