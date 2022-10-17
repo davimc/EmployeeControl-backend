@@ -5,6 +5,7 @@ import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +26,11 @@ public class License implements Serializable {
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private LocalDateTime created;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private LocalDateTime updated;
 
     public License() {
     }
@@ -70,8 +76,35 @@ public class License implements Serializable {
         this.reason = reason.getPeriodSuggestion();
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     public Employee getEmployee() {
         return employee;
+    }
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
     }
 
     @Override

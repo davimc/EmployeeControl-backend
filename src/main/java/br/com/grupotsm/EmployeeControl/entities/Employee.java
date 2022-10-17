@@ -1,8 +1,11 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -22,10 +25,13 @@ public class Employee implements Serializable {
     private String email;
     private String cpf;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dtAdmission;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dtResignation;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthDate;
 
     @ManyToOne
@@ -34,6 +40,11 @@ public class Employee implements Serializable {
 
     @OneToMany(mappedBy = "employee")
     private Set<License> licenses = new HashSet<>();
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private LocalDateTime created;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private LocalDateTime updated;
 
     public Employee() {
     }
@@ -124,6 +135,22 @@ public class Employee implements Serializable {
 
     public Set<License> getLicenses() {
         return licenses;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
     }
 
     @Override
