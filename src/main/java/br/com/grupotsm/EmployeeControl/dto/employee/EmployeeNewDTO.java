@@ -1,4 +1,4 @@
-package br.com.grupotsm.EmployeeControl.dto;
+package br.com.grupotsm.EmployeeControl.dto.employee;
 
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.entities.Store;

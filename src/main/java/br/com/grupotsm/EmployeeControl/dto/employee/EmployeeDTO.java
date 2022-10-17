@@ -1,4 +1,4 @@
-package br.com.grupotsm.EmployeeControl.dto;
+package br.com.grupotsm.EmployeeControl.dto.employee;
 
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.entities.Store;
@@ -17,7 +17,6 @@ public class EmployeeDTO {
     private LocalDate dtAdmission;
     private LocalDate dtResignation;
     private LocalDate birthDate;
-
     private String nameStore;
 
     public EmployeeDTO() {
