@@ -49,14 +49,13 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(Long id, String name, char gender, String email, String cpf, LocalDate dtAdmission, LocalDate dtResignation, LocalDate birthDate, Store store) {
+    public Employee(Long id, String name, char gender, String email, String cpf, LocalDate dtAdmission, LocalDate birthDate, Store store) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.email = email;
         this.cpf = cpf;
         this.dtAdmission = dtAdmission;
-        this.dtResignation = dtResignation;
         this.birthDate = birthDate;
         this.store = store;
     }

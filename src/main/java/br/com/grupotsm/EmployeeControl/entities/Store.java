@@ -1,6 +1,8 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
 
+import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -24,10 +26,10 @@ public class Store implements Serializable {
     public Store() {
     }
 
-    public Store(Long id, String name, int type) {
+    public Store(Long id, String name, StoreType storeType) {
         this.id = id;
         this.name = name;
-        this.type = type;
+        this.type = storeType.getCod();
     }
 
     public Long getId() {
@@ -46,12 +48,12 @@ public class Store implements Serializable {
         this.name = name;
     }
 
-    public int getType() {
-        return type;
+    public StoreType getType() {
+        return StoreType.toEnum(type);
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setType(StoreType type) {
+        this.type = type.getCod();
     }
 
     public Set<Employee> getEmployees() {
