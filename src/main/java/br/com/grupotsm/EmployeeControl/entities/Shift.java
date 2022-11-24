@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_shift")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Shift implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -15,15 +16,14 @@ public class Shift implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate dtStart;
+    private LocalDate dtPrevision;
     private LocalDate dtEnd;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @ManyToOne
-    @JoinColumn(name = "generating_employee_id")
-    private Employee generatingEmployee;
+
     @ManyToOne
     @JoinColumn(name = "assigned_employee_id")
     private Employee assignedEmployee;
@@ -32,21 +32,22 @@ public class Shift implements Serializable {
     @JoinColumn(name = "license_id")
     private License license;
 
-    public Shift(Long id, LocalDate dtStart, LocalDate dtEnd, Store store, Employee generatingEmployee, Employee assignedEmployee) {
+    public Shift() {
+    }
+
+    public Shift(Long id, LocalDate dtStart, LocalDate dtPrevision, Store store, Employee assignedEmployee) {
         this.id = id;
         this.dtStart = dtStart;
-        this.dtEnd = dtEnd;
+        this.dtPrevision = dtPrevision;
+        this.dtEnd = null;
         this.store = store;
-        this.generatingEmployee = generatingEmployee;
         this.assignedEmployee = assignedEmployee;
     }
 
-    public Shift(Long id, LocalDate dtStart, LocalDate dtEnd, Store store, Employee generatingEmployee, Employee assignedEmployee, License license) {
+    public Shift(Long id, LocalDate dtStart, Store store, Employee generatingEmployee, Employee assignedEmployee, License license) {
         this.id = id;
         this.dtStart = dtStart;
-        this.dtEnd = dtEnd;
         this.store = store;
-        this.generatingEmployee = generatingEmployee;
         this.assignedEmployee = assignedEmployee;
         this.license = license;
     }
@@ -83,13 +84,6 @@ public class Shift implements Serializable {
         this.store = store;
     }
 
-    public Employee getGeneratingEmployee() {
-        return generatingEmployee;
-    }
-
-    public void setGeneratingEmployee(Employee generatingEmployee) {
-        this.generatingEmployee = generatingEmployee;
-    }
 
     public Employee getAssignedEmployee() {
         return assignedEmployee;
