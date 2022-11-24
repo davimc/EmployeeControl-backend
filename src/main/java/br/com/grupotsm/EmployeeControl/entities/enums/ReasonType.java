@@ -4,6 +4,7 @@ public enum ReasonType {
 
     ABSCENSE(1,"Ausência"),
     CERTIFICATE(2,"Atestado"),
+    SUSPENSION(3, "Suspensão"),
     PATERNITY(5,"Paternidade"),
     VACATION(30,"Férias"),
     MATERNITY(120,"Maternidade");
