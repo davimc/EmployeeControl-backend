@@ -51,7 +51,7 @@ public class Factory {
         return dto;
     }
     public static Shift createShift() {
-        Shift obj =  new Shift(1L, LocalDate.now(),LocalDate.now().plusDays(5),new Store(), new Employee(), new Employee(), new License());
+        Shift obj =  new Shift(1L, LocalDate.now(), LocalDate.now().plusDays(5),new Store(), new Employee());
         return obj;
     }
 
