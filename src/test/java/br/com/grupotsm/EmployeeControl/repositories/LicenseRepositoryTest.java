@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @DataJpaTest
@@ -46,7 +47,7 @@ public class LicenseRepositoryTest {
     }
     @Test
     public void saveShouldCreateAndAutoincrementIdWhenIdIsNull() {
-        License obj = Factory.createLicense();
+        License obj = Factory.createLicenseActive();
         obj.setId(null);
         obj = repository.save(obj);
 
@@ -71,5 +72,14 @@ public class LicenseRepositoryTest {
         Assertions.assertThrows(EmptyResultDataAccessException.class,()->{
             repository.deleteById(nonExistingId);
         });
+    }
+
+    @Test
+    public void isActiveShouldReturnTrueWhenLicenseIsCurrentt() {
+        License obj = Factory.createLicenseActive();
+        obj.getEmployee().setId(1L);
+        obj = repository.save(obj);
+
+        Assertions.assertEquals(repository.findActiveLicenseByEmployee(1L, LocalDate.now()).get(),obj);
     }
 }

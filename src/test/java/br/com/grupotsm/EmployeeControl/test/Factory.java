@@ -26,8 +26,8 @@ public class Factory {
 
         return dto;
     }
-    public static License createLicense() {
-        License obj =  new License(1L, LocalDate.now(), LocalDate.now().plusDays(2), ReasonType.CERTIFICATE, "Conjuntivite", new Employee());
+    public static License createLicenseActive() {
+        License obj = new License(1L, LocalDate.now(), LocalDate.now().plusDays(2), ReasonType.CERTIFICATE, "Conjuntivite", new Employee());
         return obj;
     }
 
@@ -54,5 +54,6 @@ public class Factory {
         Shift obj =  new Shift(1L, LocalDate.now(), LocalDate.now().plusDays(5),new Store(), new Employee());
         return obj;
     }
+
 
 }
