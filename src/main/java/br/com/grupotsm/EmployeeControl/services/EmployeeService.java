@@ -4,7 +4,9 @@ import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeNewDTO;
 import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeUpdateDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
+import br.com.grupotsm.EmployeeControl.entities.License;
 import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
+import br.com.grupotsm.EmployeeControl.repositories.StoreRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -22,7 +25,9 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository repository;
     @Autowired
-    private StoreService storeService;
+    private StoreRepository storeRepository;
+    @Autowired
+    private LicenseService licenseService;
 
     @Transactional(readOnly = true)
     public Page<EmployeeDTO> findAllPaged(Pageable pageable){
@@ -67,7 +72,7 @@ public class EmployeeService {
         obj.setEmail(dto.getEmail());
         obj.setDtAdmission(dto.getDtAdmission());
         obj.setDtResignation(dto.getDtResignation());
-        obj.setStore(storeService.findById(dto.getIdStore()));
+        obj.setStore(storeRepository.findById(dto.getIdStore()).get());
     }
 
 
@@ -77,6 +82,22 @@ public class EmployeeService {
         obj.setName(dto.getName());
         obj.setEmail(dto.getEmail());
         obj.setDtAdmission(dto.getDtAdmission());
-        obj.setStore(storeService.findById(dto.getIdStore()));
+        obj.setStore(storeRepository.findById(dto.getIdStore()).get());
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isActive(EmployeeDTO dto) {
+        Employee obj = findById(dto.getId());
+        Optional<License> licenseActive = licenseService.findActiveLicenseByEmployee(obj.getId());
+
+        return licenseActive.isEmpty() || obj.getDtResignation()!=null;
+    }
+    @Transactional(readOnly = true)
+    public List<EmployeeDTO> listActives(List<EmployeeDTO> dto) {
+        dto.stream().forEach(e -> {
+            if((!isActive(e)))
+               dto.remove(e);
+        });
+        return dto;
     }
 }
