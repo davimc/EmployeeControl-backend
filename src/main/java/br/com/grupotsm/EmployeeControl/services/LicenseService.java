@@ -3,6 +3,7 @@ package br.com.grupotsm.EmployeeControl.services;
 import br.com.grupotsm.EmployeeControl.dto.license.LicenseDTO;
 import br.com.grupotsm.EmployeeControl.dto.license.LicenseSaveDTO;
 import br.com.grupotsm.EmployeeControl.entities.License;
+import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
 import br.com.grupotsm.EmployeeControl.repositories.LicenseRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -22,7 +24,7 @@ public class LicenseService {
     private LicenseRepository repository;
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeRepository employeeRepository;
 
     @Transactional(readOnly = true)
     public Page<LicenseDTO> findAllPaged(Pageable pageable){
@@ -57,9 +59,14 @@ public class LicenseService {
         return new LicenseDTO(obj);
     }
 
+    @Transactional(readOnly = true)
+    public Optional<License> findActiveLicenseByEmployee(long employeeId) {
+        return repository.findActiveLicenseByEmployee(employeeId, LocalDate.now());
+    }
+
     private void copyDtoToEntity(LicenseSaveDTO dto, License obj) {
         obj.setDescription(dto.getDescription());
-        obj.setEmployee(employeeService.findById(dto.getEmployeeId()));
+        obj.setEmployee(employeeRepository.findById(dto.getEmployeeId()).get());
         obj.setDtEnd(dto.getDtEnd());
         obj.setDtStart(dto.getDtStart());
         obj.setReason(obj.getReason());

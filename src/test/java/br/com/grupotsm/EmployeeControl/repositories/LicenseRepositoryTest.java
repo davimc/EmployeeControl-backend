@@ -75,11 +75,20 @@ public class LicenseRepositoryTest {
     }
 
     @Test
-    public void isActiveShouldReturnTrueWhenLicenseIsCurrentt() {
+    public void isActiveShouldReturnTrueWhenLicenseIsCurrent() {
         License obj = Factory.createLicenseActive();
         obj.getEmployee().setId(1L);
         obj = repository.save(obj);
 
+        Assertions.assertTrue(repository.findActiveLicenseByEmployee(1L, LocalDate.now()).isPresent());
         Assertions.assertEquals(repository.findActiveLicenseByEmployee(1L, LocalDate.now()).get(),obj);
+    }
+    @Test
+    public void isActiveShouldReturnFalseWhenLicenseIsNotCurrent() {
+        License obj = Factory.createLicenseInactive();
+        obj.getEmployee().setId(1L);
+        obj = repository.save(obj);
+
+        Assertions.assertTrue(repository.findActiveLicenseByEmployee(1L, LocalDate.now()).isEmpty());
     }
 }

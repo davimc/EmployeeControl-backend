@@ -31,6 +31,11 @@ public class Factory {
         return obj;
     }
 
+    public static License createLicenseInactive() {
+        License obj = new License(1L, LocalDate.now().minusDays(4), LocalDate.now().minusDays(3), ReasonType.ABSCENSE, "Não informou", new Employee());
+        return obj;
+    }
+
     public static EmployeeDTO createLicenseDTO() {
         Employee obj = createEmployee();
         EmployeeDTO dto = new EmployeeDTO(obj);
