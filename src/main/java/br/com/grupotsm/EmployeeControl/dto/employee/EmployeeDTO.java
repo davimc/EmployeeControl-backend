@@ -2,6 +2,7 @@ package br.com.grupotsm.EmployeeControl.dto.employee;
 
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.entities.Store;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
@@ -14,8 +15,11 @@ public class EmployeeDTO {
     private String name;
     private String email;
     private String cpf;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dtAdmission;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dtResignation;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
     private String nameStore;
 
