@@ -3,13 +3,12 @@ package br.com.grupotsm.EmployeeControl.test;
 import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.dto.store.StoreDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
+import br.com.grupotsm.EmployeeControl.entities.Exchange;
 import br.com.grupotsm.EmployeeControl.entities.License;
-import br.com.grupotsm.EmployeeControl.entities.Shift;
 import br.com.grupotsm.EmployeeControl.entities.Store;
 import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 public class Factory {
@@ -55,8 +54,12 @@ public class Factory {
 
         return dto;
     }
-    public static Shift createShift() {
-        Shift obj =  new Shift(1L, LocalDate.now(), LocalDate.now().plusDays(5),new Store(), new Employee());
+    public static Exchange createExchange() {
+        Employee otherEmp = createEmployee();
+        otherEmp.setName("Saad");
+        Store otherStore = createStore();
+        otherStore.setName("Hogwarts");
+        Exchange obj =  new Exchange(1L, createEmployee(), otherEmp, createStore(), otherStore, LocalDate.now());
         return obj;
     }
 

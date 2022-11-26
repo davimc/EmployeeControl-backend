@@ -76,7 +76,7 @@ public class LicenseRepositoryTest {
 
     @Test
     public void isActiveShouldReturnTrueWhenLicenseIsCurrent() {
-        License obj = Factory.createLicenseActive();
+        License obj = Factory.createLicenseInactive();
         obj.getEmployee().setId(1L);
         obj = repository.save(obj);
 
@@ -85,7 +85,7 @@ public class LicenseRepositoryTest {
     }
     @Test
     public void isActiveShouldReturnFalseWhenLicenseIsNotCurrent() {
-        License obj = Factory.createLicenseInactive();
+        License obj = Factory.createLicenseActive();
         obj.getEmployee().setId(1L);
         obj = repository.save(obj);
 

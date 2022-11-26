@@ -1,14 +1,10 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_employee")
@@ -25,13 +21,10 @@ public class Employee implements Serializable {
     private String email;
     private String cpf;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dtAdmission;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dtResignation;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthDate;
 
     @ManyToOne
@@ -45,7 +38,10 @@ public class Employee implements Serializable {
     private LocalDateTime created;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private LocalDateTime updated;
-
+    @OneToMany(mappedBy = "generatorEmployee")
+    private List<Exchange> generatedExchanges = new ArrayList<>();
+    @OneToMany(mappedBy = "exchangedEmployee")
+    private List<Exchange> receivedExchanges = new ArrayList<>();
     public Employee() {
     }
 
@@ -147,9 +143,16 @@ public class Employee implements Serializable {
     public LocalDateTime getUpdated() {
         return updated;
     }
-
     public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
+    }
+
+    public List<Exchange> getGeneratedExchanges() {
+        return generatedExchanges;
+    }
+
+    public List<Exchange> getReceivedExchanges() {
+        return receivedExchanges;
     }
 
     @Override

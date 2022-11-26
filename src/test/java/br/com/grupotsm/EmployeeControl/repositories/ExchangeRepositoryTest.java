@@ -1,6 +1,6 @@
 package br.com.grupotsm.EmployeeControl.repositories;
 
-import br.com.grupotsm.EmployeeControl.entities.Shift;
+import br.com.grupotsm.EmployeeControl.entities.Exchange;
 import br.com.grupotsm.EmployeeControl.test.Factory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,10 +12,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import java.util.Optional;
 
 @DataJpaTest
-public class ShiftRepositoryTest {
+public class ExchangeRepositoryTest {
 
     @Autowired
-    private ShiftRepository repository;
+    private ExchangeRepository repository;
     private long existingId;
     private long nonExistingId;
     private long dependentId;
@@ -30,23 +30,23 @@ public class ShiftRepositoryTest {
     }
 
     @Test
-    public void findByIdShouldReturnNonEmptyOptionalShiftWhenIdExists() {
+    public void findByIdShouldReturnNonEmptyOptionalExchangeWhenIdExists() {
         Assertions.assertDoesNotThrow(() -> {
-            Optional<Shift> obj = repository.findById(existingId);
+            Optional<Exchange> obj = repository.findById(existingId);
             Assertions.assertTrue(obj.isPresent());
             Assertions.assertEquals(obj.get().getId(), existingId);
         });
     }
     @Test
-    public void findByIdShouldReturnEmptyOptionalShiftWhenIdDoesNotExist() {
+    public void findByIdShouldReturnEmptyOptionalExchangeWhenIdDoesNotExist() {
         Assertions.assertDoesNotThrow(()-> {
-            Optional<Shift> obj = repository.findById(nonExistingId);
+            Optional<Exchange> obj = repository.findById(nonExistingId);
             Assertions.assertFalse(obj.isPresent());
         });
     }
     @Test
     public void saveShouldCreateAndAutoincrementIdWhenIdIsNull() {
-        Shift obj = Factory.createShift();
+        Exchange obj = Factory.createExchange();
         obj.setId(null);
         obj = repository.save(obj);
 
@@ -55,12 +55,12 @@ public class ShiftRepositoryTest {
     }
 
     @Test
-    public void deleteShouldDeleteShiftWhenIdExists() {
+    public void deleteShouldDeleteExchangeWhenIdExists() {
 
 
         repository.deleteById(existingId);
 
-        Optional<Shift> obj = repository.findById(existingId);
+        Optional<Exchange> obj = repository.findById(existingId);
         Assertions.assertFalse(obj.isPresent());
     }
 

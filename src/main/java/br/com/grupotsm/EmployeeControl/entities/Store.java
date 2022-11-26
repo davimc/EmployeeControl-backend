@@ -5,9 +5,7 @@ import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_store")
@@ -23,6 +21,11 @@ public class Store implements Serializable {
 
     @OneToMany(mappedBy = "store")
     private Set<Employee> employees = new HashSet<>();
+
+    @OneToMany(mappedBy = "generatorStore")
+    private List<Exchange> generatedExchanges = new ArrayList<>();
+    @OneToMany(mappedBy = "exchangedStore")
+    private List<Exchange> receivedExchanges = new ArrayList<>();
     public Store() {
     }
 
