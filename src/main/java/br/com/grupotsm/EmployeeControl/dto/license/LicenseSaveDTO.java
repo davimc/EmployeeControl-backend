@@ -2,9 +2,11 @@ package br.com.grupotsm.EmployeeControl.dto.license;
 
 import br.com.grupotsm.EmployeeControl.entities.License;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class LicenseSaveDTO {
+public class LicenseSaveDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private LocalDate dtStart;
     private LocalDate dtEnd;
