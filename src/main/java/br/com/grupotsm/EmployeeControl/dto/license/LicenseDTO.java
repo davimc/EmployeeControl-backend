@@ -5,9 +5,11 @@ import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.entities.License;
 
 import javax.persistence.Column;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class LicenseDTO {
+public class LicenseDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private LocalDate dtStart;

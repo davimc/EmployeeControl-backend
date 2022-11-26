@@ -5,9 +5,11 @@ import br.com.grupotsm.EmployeeControl.entities.Employee;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class EmployeeUpdateDTO {
+public class EmployeeUpdateDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @NotBlank(message = "Campo nome não pode ser vazio")
     private String name;

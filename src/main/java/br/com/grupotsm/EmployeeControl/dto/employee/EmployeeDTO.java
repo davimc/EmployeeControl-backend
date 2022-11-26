@@ -8,9 +8,11 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class EmployeeDTO {
+public class EmployeeDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String name;
     private String email;

@@ -5,9 +5,11 @@ import br.com.grupotsm.EmployeeControl.entities.Store;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class EmployeeNewDTO {
+public class EmployeeNewDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     @NotBlank(message = "Campo nome não pode ser vazio")
     private String name;
     @NotBlank(message = "Campo email não pode ser vazio")
