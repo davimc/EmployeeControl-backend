@@ -20,8 +20,6 @@ public class ExchangeDTO implements Serializable {
     private LocalDate dtExpected;
     private LocalDate dtEnd;
 
-    private LocalDateTime created;
-
     public ExchangeDTO() {
     }
 
@@ -34,7 +32,6 @@ public class ExchangeDTO implements Serializable {
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
         this.dtEnd = dtEnd;
-        this.created = created;
     }
     public ExchangeDTO(Exchange obj) {
         id = obj.getId();
@@ -45,7 +42,6 @@ public class ExchangeDTO implements Serializable {
         dtStart = obj.getDtStart();
         dtExpected = obj.getDtExpected();
         dtEnd = obj.getDtEnd();
-        created = obj.getCreated();
     }
 
     public Long getId() {
@@ -78,9 +74,5 @@ public class ExchangeDTO implements Serializable {
 
     public LocalDate getDtEnd() {
         return dtEnd;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
     }
 }
