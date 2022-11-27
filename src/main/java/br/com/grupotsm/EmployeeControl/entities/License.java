@@ -16,9 +16,11 @@ public class License implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "DATE")
     private LocalDate dtStart;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "DATE")
+    private LocalDate dtExpected;
+    @Column(columnDefinition = "DATE")
     private LocalDate dtEnd;
     private int reason;
     private String description;
@@ -35,10 +37,10 @@ public class License implements Serializable {
     public License() {
     }
 
-    public License(Long id, LocalDate dtStart, LocalDate dtEnd, ReasonType reason, String description, Employee employee) {
+    public License(Long id, LocalDate dtStart, LocalDate dtExpected, ReasonType reason, String description, Employee employee) {
         this.id = id;
         this.dtStart = dtStart;
-        this.dtEnd = dtEnd;
+        this.dtExpected = dtExpected;
         this.reason = reason.getPeriodSuggestion();
         this.description = description;
         this.employee = employee;

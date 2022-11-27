@@ -27,18 +27,12 @@ public class Exchange implements Serializable {
     @JoinColumn(name = "exchanged_store_id")
     private Store exchangedStore;
 
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private LocalDateTime created;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private LocalDateTime updated;
-
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "DATE")
     private LocalDate dtStart;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "DATE")
     private LocalDate dtExpected;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "DATE")
     private LocalDate dtEnd;
-    private boolean active;
 
     public Exchange() {
     }
@@ -49,7 +43,6 @@ public class Exchange implements Serializable {
         this.generatorStore = generatorStore;
         this.exchangedStore = exchangedStore;
         this.dtStart = dtStart;
-        this.active = true;
     }
     public Exchange(Long id, Employee generatorEmployee, Store generatorStore, Store exchangedStore, LocalDate dtStart, LocalDate dtExpected) {
         this.id = id;
@@ -58,7 +51,6 @@ public class Exchange implements Serializable {
         this.exchangedStore = exchangedStore;
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
-        this.active = true;
     }
 
     public Exchange(Long id, Employee generatorEmployee, Employee exchangedEmployee, Store generatorStore, Store exchangedStore, LocalDate dtStart) {
@@ -68,7 +60,6 @@ public class Exchange implements Serializable {
         this.generatorStore = generatorStore;
         this.exchangedStore = exchangedStore;
         this.dtStart = dtStart;
-        this.active = true;
     }
 
     public Exchange(Long id, Employee generatorEmployee, Employee exchangedEmployee, Store generatorStore, Store exchangedStore, LocalDate dtStart, LocalDate dtExpected) {
@@ -79,7 +70,6 @@ public class Exchange implements Serializable {
         this.exchangedStore = exchangedStore;
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
-        this.active = true;
     }
 
     public Long getId() {
@@ -122,22 +112,6 @@ public class Exchange implements Serializable {
         this.exchangedStore = exchangedStore;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(LocalDateTime updated) {
-        this.updated = updated;
-    }
-
     public LocalDate getDtStart() {
         return dtStart;
     }
@@ -160,14 +134,6 @@ public class Exchange implements Serializable {
 
     public void setDtEnd(LocalDate dtEnd) {
         this.dtEnd = dtEnd;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     @Override

@@ -20,11 +20,11 @@ public class Employee implements Serializable {
     private char gender;
     private String email;
     private String cpf;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "DATE")
     private LocalDate dtAdmission;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "DATE")
     private LocalDate dtResignation;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "DATE")
     private LocalDate birthDate;
 
     @ManyToOne

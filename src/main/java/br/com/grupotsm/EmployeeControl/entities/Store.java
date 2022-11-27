@@ -19,7 +19,7 @@ public class Store implements Serializable {
 
     private int type;
 
-    @OneToMany(mappedBy = "store")
+    @OneToMany(mappedBy = "store", fetch = FetchType.EAGER)
     private Set<Employee> employees = new HashSet<>();
 
     @OneToMany(mappedBy = "generatorStore")
