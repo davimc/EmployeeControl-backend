@@ -31,5 +31,5 @@ INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUE
 INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2023-01-13', '2023-01-13', 30, 10);
 
 
-INSERT INTO tb_exchange(dt_start, dt_expected, generator_Employee_id, exchanged_employee_id, generator_store_id, exchanged_store_id,active) VALUES (TIMESTAMP '2021-07-13T20:50:07.12345Z', TIMESTAMP '2021-08-13T20:50:07.12345Z',1,2,1,2, false)
-INSERT INTO tb_exchange(dt_start, dt_expected, generator_Employee_id, exchanged_employee_id, generator_store_id, exchanged_store_id,active) VALUES (TIMESTAMP '2022-01-13T20:50:07.12345Z', TIMESTAMP '2022-08-13T20:50:07.12345Z',3,2,4,2, true)
+INSERT INTO tb_exchange(dt_start, dt_expected, generator_Employee_id, exchanged_employee_id, generator_store_id, exchanged_store_id) VALUES (TIMESTAMP '2021-07-13T20:50:07.12345Z', TIMESTAMP '2021-08-13T20:50:07.12345Z',1,2,1,2)
+INSERT INTO tb_exchange(dt_start, dt_expected, generator_Employee_id, exchanged_employee_id, generator_store_id, exchanged_store_id) VALUES (TIMESTAMP '2022-01-13T20:50:07.12345Z', TIMESTAMP '2022-08-13T20:50:07.12345Z',3,2,4,2)
