@@ -4,7 +4,6 @@ import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeNewDTO;
 import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeUpdateDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
-import br.com.grupotsm.EmployeeControl.entities.License;
 import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
 import br.com.grupotsm.EmployeeControl.repositories.StoreRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
@@ -17,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -88,16 +89,16 @@ public class EmployeeService {
     @Transactional(readOnly = true)
     public boolean isActive(EmployeeDTO dto) {
         Employee obj = findById(dto.getId());
-        Optional<License> licenseActive = licenseService.findActiveLicenseByEmployee(obj.getId());
+        Set licensesActive = licenseService.findActiveLicenseByEmployee(obj.getLicenses());
 
-        return licenseActive.isEmpty() || obj.getDtResignation()!=null;
+        return licensesActive.isEmpty();
     }
     @Transactional(readOnly = true)
-    public List<EmployeeDTO> listActives(List<EmployeeDTO> dto) {
-        dto.stream().forEach(e -> {
-            if((!isActive(e)))
-               dto.remove(e);
-        });
+    public List<EmployeeDTO> listActives(List<EmployeeDTO> dto, boolean isHired, boolean isAvailable) {
+        if(isHired)
+            dto = dto.stream().filter(e -> e.getDtResignation()==null).collect(Collectors.toList());
+        if(isAvailable)
+            dto = dto.stream().filter(this::isActive).collect(Collectors.toList());
         return dto;
     }
 }

@@ -21,7 +21,9 @@ public class StoreResource {
         return ResponseEntity.ok().body(service.findAllPaged(pageable));
     }
     @GetMapping(value = "/{id}")
-    public ResponseEntity<StoreDTO> findById(@PathVariable Long id, @RequestParam(name = "actives", defaultValue = "false") boolean justActives) {
-        return ResponseEntity.ok().body(service.findByIdDTO(id, justActives));
+    public ResponseEntity<StoreDTO> findById(@PathVariable Long id,
+                                             @RequestParam(name = "isHired", defaultValue="true") boolean isHired,
+                                             @RequestParam(name = "isAvailable", defaultValue = "false") boolean isAvailable) {
+        return ResponseEntity.ok().body(service.findByIdDTO(id, isHired,isAvailable));
     }
 }

@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -62,6 +64,15 @@ public class LicenseService {
     @Transactional(readOnly = true)
     public Optional<License> findActiveLicenseByEmployee(long employeeId) {
         return repository.findActiveLicenseByEmployee(employeeId, LocalDate.now());
+    }
+    @Transactional(readOnly = true)
+    public Set<License> findActiveLicenseByEmployee(Set<License> licenses) {
+        LocalDate today = LocalDate.now();
+        licenses = licenses.stream()
+                .filter((l -> (l.getDtStart().isBefore(today) || l.getDtStart().isEqual(today))
+                        && (today.isBefore(l.getDtEnd()==null? l.getDtExpected() : l.getDtEnd()) || today.isEqual(l.getDtEnd()==null? l.getDtExpected() : l.getDtEnd()))))
+                .collect(Collectors.toSet());
+        return licenses;
     }
 
     private void copyDtoToEntity(LicenseSaveDTO dto, License obj) {

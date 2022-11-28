@@ -1,7 +1,6 @@
 package br.com.grupotsm.EmployeeControl.services;
 
 import br.com.grupotsm.EmployeeControl.dto.store.StoreDTO;
-import br.com.grupotsm.EmployeeControl.dto.store.StoreDTO;
 import br.com.grupotsm.EmployeeControl.entities.Store;
 import br.com.grupotsm.EmployeeControl.repositories.StoreRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
@@ -11,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -32,10 +32,9 @@ public class StoreService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(id, Store.class));
     }
 
-    public StoreDTO findByIdDTO(Long id, Boolean justActives) {
+    public StoreDTO findByIdDTO(Long id, Boolean isHired, Boolean isAvaible) {
         StoreDTO dto = new StoreDTO(findById(id));
-        if(justActives)
-            dto.setEmployees(employeeService.listActives(dto.getEmployees()));
+        dto.setEmployees(employeeService.listActives(dto.getEmployees(),isHired, isAvaible));
         return dto;
     }
 }
