@@ -70,6 +70,14 @@ public class License implements Serializable {
         this.dtEnd = dtEnd;
     }
 
+    public LocalDate getDtExpected() {
+        return dtExpected;
+    }
+
+    public void setDtExpected(LocalDate dtExpected) {
+        this.dtExpected = dtExpected;
+    }
+
     public ReasonType getReason() {
         return ReasonType.toEnum(reason);
     }
