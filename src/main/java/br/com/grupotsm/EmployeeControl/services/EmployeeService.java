@@ -9,6 +9,7 @@ import br.com.grupotsm.EmployeeControl.repositories.StoreRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,9 +32,12 @@ public class EmployeeService {
     private LicenseService licenseService;
 
     @Transactional(readOnly = true)
-    public Page<EmployeeDTO> findAllPaged(Pageable pageable){
+    public Page<EmployeeDTO> findAllPaged(Pageable pageable, boolean justHired, boolean justAvailable){
         Page<Employee> obj = repository.findAll(pageable);
-        return obj.map(EmployeeDTO::new);
+        Page<EmployeeDTO> dto = obj.map(EmployeeDTO::new);
+        List<EmployeeDTO> employees = listActives(dto.stream().toList(), justHired, justAvailable);
+        dto = new PageImpl<>(employees);
+        return dto;
     }
 
     @Transactional(readOnly = true)
