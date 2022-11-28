@@ -24,7 +24,7 @@ public class EmployeeResource {
     public ResponseEntity<Page<EmployeeDTO>> findAll(Pageable pageable) {
         return ResponseEntity.ok().body(service.findAllPaged(pageable));
     }
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<EmployeeDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findByIdDTO(id));
     }
