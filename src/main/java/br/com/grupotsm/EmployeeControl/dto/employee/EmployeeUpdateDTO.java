@@ -18,7 +18,7 @@ public class EmployeeUpdateDTO implements Serializable {
     private String email;
     @PastOrPresent(message = "Data de admissão não pode ser futura")
     private LocalDate dtAdmission;
-    @PastOrPresent(message = "Data de desligamento não pode ser futura")
+
     private LocalDate dtResignation;
     @PastOrPresent(message = "Data de nascimento não pode ser futura")
     private LocalDate birthDate;

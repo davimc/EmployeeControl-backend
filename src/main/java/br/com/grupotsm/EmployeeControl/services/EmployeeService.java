@@ -5,7 +5,6 @@ import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeNewDTO;
 import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeUpdateDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
-import br.com.grupotsm.EmployeeControl.repositories.StoreRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +27,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository repository;
     @Autowired
-    private StoreRepository storeRepository;
+    private StoreService storeService;
     @Autowired
     private LicenseService licenseService;
 
@@ -62,7 +62,7 @@ public class EmployeeService {
     }
     @Transactional(readOnly = false)
     public EmployeeDTO update(Long id,EmployeeUpdateDTO dto) {
-        Employee obj = new Employee();
+        Employee obj = findById(id);
         copyDtoToEntity(dto, obj);
         obj.setUpdated(LocalDateTime.now());
 
@@ -71,25 +71,24 @@ public class EmployeeService {
         return new EmployeeDTO(obj);
     }
 
-    private void copyDtoToEntity(EmployeeUpdateDTO dto, Employee obj) {
-        obj.setBirthDate(dto.getBirthDate());
-        obj.setName(dto.getName());
-        obj.setEmail(dto.getEmail());
-        obj.setDtAdmission(dto.getDtAdmission());
-        obj.setDtResignation(dto.getDtResignation());
-        obj.setStore(storeRepository.findById(dto.getIdStore()).get());
-    }
-
-
     private void copyDtoToEntity(EmployeeNewDTO dto, Employee obj) {
-        obj.setCpf(dto.getCpf());
         obj.setBirthDate(dto.getBirthDate());
+        obj.setCpf(dto.getCpf());
         obj.setName(dto.getName());
         obj.setEmail(dto.getEmail());
         obj.setDtAdmission(dto.getDtAdmission());
-        obj.setStore(storeRepository.findById(dto.getIdStore()).get());
+        obj.setStore(storeService.findById(dto.getIdStore()));
     }
 
+
+    private void copyDtoToEntity(EmployeeUpdateDTO dto, Employee obj) {
+        obj.setBirthDate(dto.getBirthDate() == null? obj.getBirthDate():dto.getBirthDate());
+        obj.setName(dto.getName() == null? obj.getName(): dto.getName());
+        obj.setEmail(dto.getEmail() == null? obj.getEmail():dto.getEmail());
+        obj.setDtAdmission(dto.getDtAdmission() == null? obj.getDtAdmission():dto.getDtAdmission());
+        obj.setDtResignation(dto.getDtResignation() == null ? obj.getDtResignation() : dto.getDtResignation());
+        obj.setStore(storeService.findById(dto.getIdStore()));
+    }
     @Transactional(readOnly = true)
     public boolean isActive(EmployeeDTO dto) {
         Employee obj = findById(dto.getId());
@@ -100,7 +99,9 @@ public class EmployeeService {
     @Transactional(readOnly = true)
     public List<EmployeeDTO> listActives(List<EmployeeDTO> dto, boolean isHired, boolean isAvailable) {
         if(isHired)
-            dto = dto.stream().filter(e -> e.getDtResignation()==null).collect(Collectors.toList());
+            dto = dto.stream().filter(e -> e.getDtResignation()==null ||
+                    (e.getDtResignation().isAfter(LocalDate.now()) ||
+                            e.getDtResignation().isEqual(LocalDate.now()))).collect(Collectors.toList());
         if(isAvailable)
             dto = dto.stream().filter(this::isActive).collect(Collectors.toList());
         return dto;

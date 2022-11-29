@@ -21,6 +21,8 @@ public class EmployeeNewDTO implements Serializable {
 
     @PastOrPresent(message = "Data de admissão não pode ser futura")
     private LocalDate dtAdmission;
+    @PastOrPresent(message = "Data de desligamento não pode ser futura")
+    private LocalDate dtResignation;
 
     @Past(message = "Data de aniversário deve ser inferior a atual")
     private LocalDate birthDate;

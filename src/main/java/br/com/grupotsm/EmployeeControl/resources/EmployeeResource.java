@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -31,7 +32,7 @@ public class EmployeeResource {
         return ResponseEntity.ok().body(service.findByIdDTO(id));
     }
     @PostMapping
-    public ResponseEntity<EmployeeDTO> admission(@RequestBody EmployeeNewDTO dto) {
+    public ResponseEntity<EmployeeDTO> admission(@RequestBody @Valid EmployeeNewDTO dto) {
         EmployeeDTO newDTO = service.admission(dto);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -39,7 +40,7 @@ public class EmployeeResource {
         return ResponseEntity.created(uri).body(newDTO);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<EmployeeDTO> update(@PathVariable Long id, @RequestBody EmployeeUpdateDTO dto) {
+    public ResponseEntity<EmployeeDTO> update(@PathVariable Long id, @RequestBody @Valid EmployeeUpdateDTO dto) {
         EmployeeDTO updatedDTO = service.update(id, dto);
         return ResponseEntity.ok().body(updatedDTO);
     }

@@ -109,6 +109,8 @@ public class Employee implements Serializable {
     }
 
     public void setDtResignation(LocalDate dtResignation) {
+        if(dtResignation.isBefore(dtAdmission))
+            throw new IllegalArgumentException("Data de desligamento não pode ser anterior a data de contratação");
         this.dtResignation = dtResignation;
     }
 
