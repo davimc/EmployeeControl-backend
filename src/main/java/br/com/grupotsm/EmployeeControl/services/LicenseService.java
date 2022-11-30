@@ -3,6 +3,7 @@ package br.com.grupotsm.EmployeeControl.services;
 import br.com.grupotsm.EmployeeControl.dto.license.LicenseDTO;
 import br.com.grupotsm.EmployeeControl.dto.license.LicenseSaveDTO;
 import br.com.grupotsm.EmployeeControl.entities.License;
+import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
 import br.com.grupotsm.EmployeeControl.repositories.LicenseRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
@@ -26,7 +27,7 @@ public class LicenseService {
     private LicenseRepository repository;
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @Transactional(readOnly = true)
     public Page<LicenseDTO> findAllPaged(Pageable pageable){
@@ -40,26 +41,27 @@ public class LicenseService {
         return new LicenseDTO(obj.orElseThrow(() -> new ObjectNotFoundException(id, License.class)));
     }
 
-    @Transactional(readOnly = false)
-    public LicenseDTO admission(LicenseSaveDTO dto) {
+    @Transactional
+    public LicenseDTO save(LicenseSaveDTO dto) {
         License obj = new License();
+
         copyDtoToEntity(dto, obj);
         obj.setCreated(LocalDateTime.now());
-
         obj = repository.save(obj);
 
         return new LicenseDTO(obj);
     }
-    @Transactional(readOnly = false)
+
+    /*@Transactional
     public LicenseDTO update(Long id,LicenseSaveDTO dto) {
         License obj = new License();
+
         copyDtoToEntity(dto, obj);
         obj.setUpdated(LocalDateTime.now());
-
         obj = repository.save(obj);
 
         return new LicenseDTO(obj);
-    }
+    }*/
 
     @Transactional(readOnly = true)
     public Optional<License> findActiveLicenseByEmployee(long employeeId) {
@@ -75,11 +77,22 @@ public class LicenseService {
         return licenses;
     }
 
+    /* TODO criar copyDtoToEntity para create
+        tratamento de data end para update.
+    */
     private void copyDtoToEntity(LicenseSaveDTO dto, License obj) {
-        obj.setDescription(dto.getDescription());
-        obj.setEmployee(employeeRepository.findById(dto.getEmployeeId()).get());
-        obj.setDtEnd(dto.getDtEnd());
-        obj.setDtStart(dto.getDtStart());
-        obj.setReason(obj.getReason());
+        obj.setDescription(dto.getDescription() == null? obj.getDescription() : dto.getDescription());
+        obj.setEmployee(dto.getEmployeeId() == null ? obj.getEmployee() : employeeService.findById(dto.getEmployeeId()));
+        obj.setDtExpected(dto.getDtExpected() == null ? obj.getDtExpected() : dto.getDtExpected());
+        obj.setDtStart(dto.getDtStart() == null ? obj.getDtStart() : dto.getDtStart());
+        validateDate(obj);
+        obj.setReason(dto.getReason() == 0 ? obj.getReason() : ReasonType.toEnum(dto.getReason()));
+    }
+
+    private void validateDate(License obj) {
+        if(obj.getDtExpected().isEqual(obj.getDtStart()) || obj.getDtExpected().isBefore(obj.getDtStart()))
+            throw new IllegalArgumentException("Data prevista não pode ser menor ou igual a data inicial");
+        if(obj.getDtEnd() != null && (obj.getDtEnd().isEqual(obj.getDtStart()) || obj.getDtEnd().isBefore(obj.getDtStart())))
+            throw new IllegalArgumentException("Data de encerramento não pode ser menor ou igual a data inicial");
     }
 }

@@ -2,25 +2,36 @@ package br.com.grupotsm.EmployeeControl.dto.license;
 
 import br.com.grupotsm.EmployeeControl.entities.License;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-
+//TODO criar dto para create
 public class LicenseSaveDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+
+    @NotNull(message = "Data de início não pode ser vazia")
     private LocalDate dtStart;
-    private LocalDate dtEnd;
-    private String reason;
+    @NotNull(message = "Data de prevista não pode ser vazia")
+    private LocalDate dtExpected;
+
+    @NotNull(message = "É necessário informar um motivo")
+    private Integer reason;
+    @Size(max = 255, message = "Ultrapassou o limite de texto")
     private String description;
 
+    @NotNull(message = "É necessário informar o funcionário designado")
     private Long employeeId;
 
     public LicenseSaveDTO() {
     }
 
-    public LicenseSaveDTO(LocalDate dtStart, LocalDate dtEnd, String reason, String description, Long employeeId) {
+    public LicenseSaveDTO(LocalDate dtStart, LocalDate dtExpected, int reason, String description, Long employeeId) {
         this.dtStart = dtStart;
-        this.dtEnd = dtEnd;
+        this.dtExpected = dtExpected;
         this.reason = reason;
         this.description = description;
         this.employeeId = employeeId;
@@ -28,8 +39,8 @@ public class LicenseSaveDTO implements Serializable {
 
     public LicenseSaveDTO(License obj) {
         this.dtStart = obj.getDtStart();
-        this.dtEnd = obj.getDtEnd();
-        this.reason = obj.getReason().getDescription();
+        this.dtExpected = obj.getDtExpected();
+        this.reason = obj.getReason().getPeriodSuggestion();
         this.description = obj.getDescription();
         this.employeeId = obj.getEmployee().getId();
     }
@@ -42,19 +53,19 @@ public class LicenseSaveDTO implements Serializable {
         this.dtStart = dtStart;
     }
 
-    public LocalDate getDtEnd() {
-        return dtEnd;
+    public LocalDate getDtExpected() {
+        return dtExpected;
     }
 
-    public void setDtEnd(LocalDate dtEnd) {
-        this.dtEnd = dtEnd;
+    public void setDtExpected(LocalDate dtExpected) {
+        this.dtExpected = dtExpected;
     }
 
-    public String getReason() {
+    public int getReason() {
         return reason;
     }
 
-    public void setReason(String reason) {
+    public void setReason(int reason) {
         this.reason = reason;
     }
 
