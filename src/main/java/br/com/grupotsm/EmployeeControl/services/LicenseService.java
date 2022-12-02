@@ -85,14 +85,6 @@ public class LicenseService {
         obj.setEmployee(dto.getEmployeeId() == null ? obj.getEmployee() : employeeService.findById(dto.getEmployeeId()));
         obj.setDtExpected(dto.getDtExpected() == null ? obj.getDtExpected() : dto.getDtExpected());
         obj.setDtStart(dto.getDtStart() == null ? obj.getDtStart() : dto.getDtStart());
-        validateDate(obj);
         obj.setReason(dto.getReason() == 0 ? obj.getReason() : ReasonType.toEnum(dto.getReason()));
-    }
-
-    private void validateDate(License obj) {
-        if(obj.getDtExpected().isEqual(obj.getDtStart()) || obj.getDtExpected().isBefore(obj.getDtStart()))
-            throw new IllegalArgumentException("Data prevista não pode ser menor ou igual a data inicial");
-        if(obj.getDtEnd() != null && (obj.getDtEnd().isEqual(obj.getDtStart()) || obj.getDtEnd().isBefore(obj.getDtStart())))
-            throw new IllegalArgumentException("Data de encerramento não pode ser menor ou igual a data inicial");
     }
 }

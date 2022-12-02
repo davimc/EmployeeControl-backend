@@ -67,6 +67,8 @@ public class License implements Serializable {
     }
 
     public void setDtEnd(LocalDate dtEnd) {
+        if(this.getDtEnd() != null && (this.getDtEnd().isEqual(this.getDtStart()) || this.getDtEnd().isBefore(this.getDtStart())))
+            throw new IllegalArgumentException("Data de encerramento não pode ser menor ou igual a data inicial");
         this.dtEnd = dtEnd;
     }
 
@@ -75,6 +77,8 @@ public class License implements Serializable {
     }
 
     public void setDtExpected(LocalDate dtExpected) {
+        if(this.getDtExpected().isEqual(this.getDtStart()) || this.getDtExpected().isBefore(this.getDtStart()))
+            throw new IllegalArgumentException("Data prevista não pode ser menor ou igual a data inicial");
         this.dtExpected = dtExpected;
     }
 
