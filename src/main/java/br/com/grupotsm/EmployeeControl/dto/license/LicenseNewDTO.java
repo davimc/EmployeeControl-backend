@@ -2,14 +2,12 @@ package br.com.grupotsm.EmployeeControl.dto.license;
 
 import br.com.grupotsm.EmployeeControl.entities.License;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 //TODO criar dto para create
-public class LicenseSaveDTO implements Serializable {
+public class LicenseNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
@@ -26,10 +24,10 @@ public class LicenseSaveDTO implements Serializable {
     @NotNull(message = "É necessário informar o funcionário designado")
     private Long employeeId;
 
-    public LicenseSaveDTO() {
+    public LicenseNewDTO() {
     }
 
-    public LicenseSaveDTO(LocalDate dtStart, LocalDate dtExpected, int reason, String description, Long employeeId) {
+    public LicenseNewDTO(LocalDate dtStart, LocalDate dtExpected, int reason, String description, Long employeeId) {
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
         this.reason = reason;
@@ -37,7 +35,7 @@ public class LicenseSaveDTO implements Serializable {
         this.employeeId = employeeId;
     }
 
-    public LicenseSaveDTO(License obj) {
+    public LicenseNewDTO(License obj) {
         this.dtStart = obj.getDtStart();
         this.dtExpected = obj.getDtExpected();
         this.reason = obj.getReason().getPeriodSuggestion();
