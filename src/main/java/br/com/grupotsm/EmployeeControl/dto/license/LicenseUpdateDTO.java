@@ -10,38 +10,32 @@ import java.time.LocalDate;
 //TODO criar dto para create
 public class LicenseUpdateDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-
-
-    @NotNull(message = "Data de início não pode ser vazia")
     private LocalDate dtStart;
-    @NotNull(message = "Data de prevista não pode ser vazia")
     private LocalDate dtExpected;
-
-    @NotNull(message = "É necessário informar um motivo")
+    private LocalDate dtEnd;
     private Integer reason;
-    @Size(max = 255, message = "Ultrapassou o limite de texto")
     private String description;
-
-    @NotNull(message = "É necessário informar o funcionário designado")
     private Long employeeId;
 
     public LicenseUpdateDTO() {
     }
 
-    public LicenseUpdateDTO(LocalDate dtStart, LocalDate dtExpected, int reason, String description, Long employeeId) {
+    public LicenseUpdateDTO(LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, Integer reason, String description, Long employeeId) {
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
+        this.dtEnd = dtEnd;
         this.reason = reason;
         this.description = description;
         this.employeeId = employeeId;
     }
 
     public LicenseUpdateDTO(License obj) {
-        this.dtStart = obj.getDtStart();
-        this.dtExpected = obj.getDtExpected();
-        this.reason = obj.getReason().getPeriodSuggestion();
-        this.description = obj.getDescription();
-        this.employeeId = obj.getEmployee().getId();
+        dtStart = obj.getDtStart();
+        dtExpected = obj.getDtExpected();
+        dtEnd = obj.getDtEnd();
+        reason = obj.getReason().getPeriodSuggestion();
+        description = obj.getDescription();
+        employeeId = obj.getEmployee().getId();
     }
 
     public LocalDate getDtStart() {
@@ -60,11 +54,19 @@ public class LicenseUpdateDTO implements Serializable {
         this.dtExpected = dtExpected;
     }
 
-    public int getReason() {
+    public LocalDate getDtEnd() {
+        return dtEnd;
+    }
+
+    public void setDtEnd(LocalDate dtEnd) {
+        this.dtEnd = dtEnd;
+    }
+
+    public Integer getReason() {
         return reason;
     }
 
-    public void setReason(int reason) {
+    public void setReason(Integer reason) {
         this.reason = reason;
     }
 

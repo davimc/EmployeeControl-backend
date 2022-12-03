@@ -1,10 +1,10 @@
 package br.com.grupotsm.EmployeeControl.services;
 
 import br.com.grupotsm.EmployeeControl.dto.license.LicenseDTO;
-import br.com.grupotsm.EmployeeControl.dto.license.LicenseSaveDTO;
+import br.com.grupotsm.EmployeeControl.dto.license.LicenseNewDTO;
+import br.com.grupotsm.EmployeeControl.dto.license.LicenseUpdateDTO;
 import br.com.grupotsm.EmployeeControl.entities.License;
 import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
-import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
 import br.com.grupotsm.EmployeeControl.repositories.LicenseRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +36,17 @@ public class LicenseService {
     }
 
     @Transactional(readOnly = true)
-    public LicenseDTO findById(Long id) {
+    protected License findById(Long id) {
         Optional<License> obj = repository.findById(id);
-        return new LicenseDTO(obj.orElseThrow(() -> new ObjectNotFoundException(id, License.class)));
+        return obj.orElseThrow(() -> new ObjectNotFoundException(id, License.class));
+    }
+    @Transactional(readOnly = true)
+    public LicenseDTO findByIdDTO(Long id) {
+        return new LicenseDTO(findById(id));
     }
 
     @Transactional
-    public LicenseDTO save(LicenseSaveDTO dto) {
+    public LicenseDTO save(LicenseNewDTO dto) {
         License obj = new License();
 
         copyDtoToEntity(dto, obj);
@@ -52,16 +56,16 @@ public class LicenseService {
         return new LicenseDTO(obj);
     }
 
-    /*@Transactional
-    public LicenseDTO update(Long id,LicenseSaveDTO dto) {
-        License obj = new License();
+    @Transactional
+    public LicenseDTO update(Long id, LicenseUpdateDTO dto) {
+        License obj = findById(id);
 
         copyDtoToEntity(dto, obj);
         obj.setUpdated(LocalDateTime.now());
         obj = repository.save(obj);
 
         return new LicenseDTO(obj);
-    }*/
+    }
 
     @Transactional(readOnly = true)
     public Optional<License> findActiveLicenseByEmployee(long employeeId) {
@@ -77,14 +81,19 @@ public class LicenseService {
         return licenses;
     }
 
-    /* TODO criar copyDtoToEntity para create
-        tratamento de data end para update.
-    */
-    private void copyDtoToEntity(LicenseSaveDTO dto, License obj) {
+    private void copyDtoToEntity(LicenseNewDTO dto, License obj) {
+        obj.setDescription(dto.getDescription());
+        obj.setEmployee(employeeService.findById(dto.getEmployeeId()));
+        obj.setDtStart(dto.getDtStart());
+        obj.setDtExpected(dto.getDtExpected());
+        obj.setReason(ReasonType.toEnum(dto.getReason()));
+    }
+    private void copyDtoToEntity(LicenseUpdateDTO dto, License obj) {
         obj.setDescription(dto.getDescription() == null? obj.getDescription() : dto.getDescription());
         obj.setEmployee(dto.getEmployeeId() == null ? obj.getEmployee() : employeeService.findById(dto.getEmployeeId()));
-        obj.setDtExpected(dto.getDtExpected() == null ? obj.getDtExpected() : dto.getDtExpected());
         obj.setDtStart(dto.getDtStart() == null ? obj.getDtStart() : dto.getDtStart());
-        obj.setReason(dto.getReason() == 0 ? obj.getReason() : ReasonType.toEnum(dto.getReason()));
+        obj.setDtExpected(dto.getDtExpected() == null ? obj.getDtExpected() : dto.getDtExpected());
+        obj.setDtEnd(dto.getDtEnd() == null ? obj.getDtEnd() : dto.getDtEnd());
+        obj.setReason(dto.getReason() == null ? obj.getReason() : ReasonType.toEnum(dto.getReason()));
     }
 }
