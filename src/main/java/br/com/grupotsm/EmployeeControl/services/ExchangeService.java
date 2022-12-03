@@ -50,10 +50,24 @@ public class ExchangeService {
      * mas se não, a troca será cancelada?
      * e se quiser para a troca ser cancelada antes? (permitir dtEnd ser antes da dtStart)
      **/
+    // TODO fazer enum para informar o tipo de mudança
+    /** TODO Complexo
+    *  pode existir 4 tipos de troca
+    * a loja está precisando de um funcionário e pode abrir um pedido de troca
+    *   sem employeeGenerator,
+    *   sem employeeExchanged
+    *   sem storeGenerator
+    * o funcionário pode estar querendo abrir um pedido de troca
+    *   sem employeeExchanged
+    *   sem storeExchanged
+    * a loja quer fornecer um funcionário
+    *   sem exchangedEmployee
+    *   sem storeExchanged
+    * o fucnionário
+     * **/
     @Transactional
     public ExchangeDTO create(ExchangeNewDTO dto) {
         Exchange obj = new Exchange();
-
         copyDtoToEntity(dto, obj);
         obj = repository.save(obj);
 
@@ -66,7 +80,8 @@ public class ExchangeService {
         obj.setGeneratorEmployee(employeeService.findById(dto.getGeneratorEmployeeId()));
         obj.setGeneratorStore(obj.getGeneratorEmployee().getStore());
         obj.setExchangedEmployee(employeeService.findById(dto.getExchangedEmployeeId()));
-        obj.setExchangedStore(storeService.findById(dto.getExchangedStoreId()));
+        obj.setExchangedStore(obj.getExchangedEmployee() == null ? storeService.findById(dto.getExchangedStoreId())
+                : obj.getExchangedEmployee().getStore());
     }
 
    /* @Transactional
