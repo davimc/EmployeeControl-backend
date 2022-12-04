@@ -28,8 +28,11 @@ public class Employee implements Serializable {
     private LocalDate birthDate;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @JoinColumn(name = "store_origin_id")
+    private Store storeOrigin;
+    @ManyToOne
+    @JoinColumn(name = "store_current_id")
+    private Store storeCurrent;
 
     @OneToMany(mappedBy = "employee")
     private Set<License> licenses = new HashSet<>();
@@ -53,7 +56,21 @@ public class Employee implements Serializable {
         this.cpf = cpf;
         this.dtAdmission = dtAdmission;
         this.birthDate = birthDate;
-        this.store = store;
+        this.storeOrigin = store;
+        this.storeCurrent = store;
+    }
+
+    public Employee(Long id, String name, char gender, String email, String cpf, LocalDate dtAdmission, LocalDate dtResignation, LocalDate birthDate, Store storeOrigin, Store storeCurrent) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.email = email;
+        this.cpf = cpf;
+        this.dtAdmission = dtAdmission;
+        this.dtResignation = dtResignation;
+        this.birthDate = birthDate;
+        this.storeOrigin = storeOrigin;
+        this.storeCurrent = storeCurrent;
     }
 
     public Long getId() {
@@ -122,12 +139,20 @@ public class Employee implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public Store getStore() {
-        return store;
+    public Store getStoreOrigin() {
+        return storeOrigin;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setStoreOrigin(Store store) {
+        this.storeOrigin = store;
+    }
+
+    public Store getStoreCurrent() {
+        return storeCurrent;
+    }
+
+    public void setStoreCurrent(Store storeCurrent) {
+        this.storeCurrent = storeCurrent;
     }
 
     public Set<License> getLicenses() {

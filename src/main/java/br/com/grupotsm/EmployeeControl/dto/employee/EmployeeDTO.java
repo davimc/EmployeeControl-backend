@@ -1,13 +1,8 @@
 package br.com.grupotsm.EmployeeControl.dto.employee;
 
 import br.com.grupotsm.EmployeeControl.entities.Employee;
-import br.com.grupotsm.EmployeeControl.entities.Store;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.PastOrPresent;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -24,12 +19,13 @@ public class EmployeeDTO implements Serializable {
     private LocalDate dtResignation;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
-    private String nameStore;
+    private String nameStoreOrigin;
+    private String nameStoreCurrent;
 
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(Long id, String name, String email, String cpf, LocalDate dtAdmission, LocalDate dtResignation, LocalDate birthDate, String nameStore) {
+    public EmployeeDTO(Long id, String name, String email, String cpf, LocalDate dtAdmission, LocalDate dtResignation, LocalDate birthDate, String nameStoreOrigin, String nameStoreCurrent) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -37,7 +33,8 @@ public class EmployeeDTO implements Serializable {
         this.dtAdmission = dtAdmission;
         this.dtResignation = dtResignation;
         this.birthDate = birthDate;
-        this.nameStore = nameStore;
+        this.nameStoreOrigin = nameStoreOrigin;
+        this.nameStoreCurrent = nameStoreCurrent;
     }
 
     public EmployeeDTO(Employee obj) {
@@ -48,7 +45,8 @@ public class EmployeeDTO implements Serializable {
         this.dtAdmission = obj.getDtAdmission();
         this.dtResignation = obj.getDtResignation();
         this.birthDate = obj.getBirthDate();
-        this.nameStore = obj.getStore().getName();
+        this.nameStoreOrigin = obj.getStoreOrigin().getName();
+        this.nameStoreCurrent = obj.getStoreCurrent().getName();
     }
 
     public Long getId() {
@@ -107,11 +105,19 @@ public class EmployeeDTO implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public String getNameStore() {
-        return nameStore;
+    public String getNameStoreOrigin() {
+        return nameStoreOrigin;
     }
 
-    public void setNameStore(String nameStore) {
-        this.nameStore = nameStore;
+    public void setNameStoreOrigin(String nameStoreOrigin) {
+        this.nameStoreOrigin = nameStoreOrigin;
+    }
+
+    public String getNameStoreCurrent() {
+        return nameStoreCurrent;
+    }
+
+    public void setNameStoreCurrent(String nameStoreCurrent) {
+        this.nameStoreCurrent = nameStoreCurrent;
     }
 }
