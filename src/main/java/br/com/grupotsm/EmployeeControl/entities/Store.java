@@ -1,14 +1,15 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
-
 import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
-@Table(name = "tb_store")
+@Table(name = "tb_employee")
 public class Store implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -16,23 +17,17 @@ public class Store implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private StoreType type;
 
-    private int type;
-
-    @OneToMany(mappedBy = "store", fetch = FetchType.EAGER)
-    private Set<Employee> employees = new HashSet<>();
-
-    @OneToMany(mappedBy = "generatorStore")
-    private List<Exchange> generatedExchanges = new ArrayList<>();
-    @OneToMany(mappedBy = "exchangedStore")
-    private List<Exchange> receivedExchanges = new ArrayList<>();
+    @OneToMany(mappedBy = "store")
+    private List<Employee> employees = new ArrayList<>();
     public Store() {
     }
 
-    public Store(Long id, String name, StoreType storeType) {
+    public Store(Long id, String name, StoreType type) {
         this.id = id;
         this.name = name;
-        this.type = storeType.getCod();
+        this.type = type;
     }
 
     public Long getId() {
@@ -52,23 +47,27 @@ public class Store implements Serializable {
     }
 
     public StoreType getType() {
-        return StoreType.toEnum(type);
+        return type;
     }
 
     public void setType(StoreType type) {
-        this.type = type.getCod();
+        this.type = type;
     }
 
-    public Set<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Store obj = (Store) o;
-        return id.equals(obj.id);
+        Store employee = (Store) o;
+        return Objects.equals(id, employee.id);
     }
 
     @Override

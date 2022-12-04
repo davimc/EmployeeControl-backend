@@ -34,17 +34,17 @@ public class Employee implements Serializable {
     @JoinColumn(name = "store_current_id")
     private Store storeCurrent;
 
-    @OneToMany(mappedBy = "employee")
+    /*@OneToMany(mappedBy = "employee")
     private Set<License> licenses = new HashSet<>();
-
+*/
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private LocalDateTime created;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private LocalDateTime updated;
-    @OneToMany(mappedBy = "generatorEmployee")
+    /*@OneToMany(mappedBy = "generatorEmployee")
     private List<Exchange> generatedExchanges = new ArrayList<>();
     @OneToMany(mappedBy = "exchangedEmployee")
-    private List<Exchange> receivedExchanges = new ArrayList<>();
+    private List<Exchange> receivedExchanges = new ArrayList<>();*/
     public Employee() {
     }
 
@@ -155,9 +155,9 @@ public class Employee implements Serializable {
         this.storeCurrent = storeCurrent;
     }
 
-    public Set<License> getLicenses() {
-        return licenses;
-    }
+//    public Set<License> getLicenses() {
+//        return licenses;
+//    }
 
     public LocalDateTime getCreated() {
         return created;
@@ -174,13 +174,13 @@ public class Employee implements Serializable {
         this.updated = updated;
     }
 
-    public List<Exchange> getGeneratedExchanges() {
+    /*public List<Exchange> getGeneratedExchanges() {
         return generatedExchanges;
     }
 
     public List<Exchange> getReceivedExchanges() {
         return receivedExchanges;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
