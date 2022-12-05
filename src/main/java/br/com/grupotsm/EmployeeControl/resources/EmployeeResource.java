@@ -1,7 +1,6 @@
 package br.com.grupotsm.EmployeeControl.resources;
 
-import br.com.grupotsm.EmployeeControl.DTO.EmployeeDTO;
-import br.com.grupotsm.EmployeeControl.entities.Employee;
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

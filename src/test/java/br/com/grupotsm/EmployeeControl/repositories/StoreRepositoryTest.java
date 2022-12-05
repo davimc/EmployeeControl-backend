@@ -1,5 +1,7 @@
 package br.com.grupotsm.EmployeeControl.repositories;
 
+import br.com.grupotsm.EmployeeControl.entities.Store;
+import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 import br.com.grupotsm.EmployeeControl.test.Factory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +36,8 @@ public class StoreRepositoryTest {
             Optional<Store> obj = repository.findById(existingId);
             Assertions.assertTrue(obj.isPresent());
             Assertions.assertEquals(obj.get().getId(), existingId);
+            Assertions.assertEquals(obj.get().getName(), "Italy");
+            Assertions.assertEquals(obj.get().getType(), StoreType.toEnum(1));
         });
     }
     @Test

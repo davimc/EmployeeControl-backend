@@ -1,4 +1,4 @@
-INSERT INTO tb_store (name, type) VALUES ('Italy', 1);
+INSERT INTO tb_store (name, type) VALUES ('Italy', 0);
 INSERT INTO tb_store (name, type) VALUES ('Russian',1);
 INSERT INTO tb_store (name, type) VALUES ('United States',1);
 INSERT INTO tb_store (name, type) VALUES ('Vietnam',2);

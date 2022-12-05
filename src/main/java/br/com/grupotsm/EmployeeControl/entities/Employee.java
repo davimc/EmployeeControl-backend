@@ -71,7 +71,7 @@ public class Employee implements UserDetails, Serializable {
         this.storeCurrent = store;
     }
 
-    public Employee(Long id, String name, char gender, String email, String cpf, String password, LocalDate dtAdmission, LocalDate dtResignation, LocalDate birthDate, Store storeOrigin, Store storeCurrent) {
+    public Employee(Long id, String name, char gender, String email, String cpf, String password, LocalDate dtAdmission, LocalDate birthDate, Store storeOrigin, Store storeCurrent) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -79,7 +79,6 @@ public class Employee implements UserDetails, Serializable {
         this.cpf = cpf;
         this.password = password;
         this.dtAdmission = dtAdmission;
-        this.dtResignation = dtResignation;
         this.birthDate = birthDate;
         this.storeBeloging = storeOrigin;
         this.storeCurrent = storeCurrent;

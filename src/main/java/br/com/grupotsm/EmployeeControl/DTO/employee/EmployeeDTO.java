@@ -1,4 +1,4 @@
-package br.com.grupotsm.EmployeeControl.DTO;
+package br.com.grupotsm.EmployeeControl.DTO.employee;
 
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 

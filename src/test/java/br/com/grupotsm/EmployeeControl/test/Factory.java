@@ -1,10 +1,9 @@
 package br.com.grupotsm.EmployeeControl.test;
 
-import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeDTO;
-import br.com.grupotsm.EmployeeControl.dto.store.StoreDTO;
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
+import br.com.grupotsm.EmployeeControl.DTO.store.StoreDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.entities.Store;
-import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 public class Factory {
 
     public static Employee createEmployee() {
-        Employee obj =  new Employee(1L, "Davi", 'M', "davimatosc@hotmail.com", "607.272.893-65", LocalDate.now(), LocalDate.of(1995,06,02), new Store());
+        Employee obj =  new Employee(1L, "Davi", 'M', "davimatosc@hotmail.com", "607.272.893-65", "123456", LocalDate.now(), LocalDate.of(1995,06,02), new Store());
         return obj;
     }
 
@@ -23,7 +22,7 @@ public class Factory {
 
         return dto;
     }
-    public static License createLicenseActive() {
+    /*public static License createLicenseActive() {
         License obj = new License(1L, LocalDate.now(), LocalDate.now().plusDays(2), ReasonType.CERTIFICATE, "Conjuntivite", new Employee());
         return obj;
     }
@@ -40,6 +39,7 @@ public class Factory {
 
         return dto;
     }
+    */
     public static Store createStore() {
         Store obj =  new Store(1L, "Narnia", StoreType.SUBWAY);
         return obj;
@@ -52,14 +52,14 @@ public class Factory {
 
         return dto;
     }
-    public static Exchange createExchange() {
+    /*public static Exchange createExchange() {
         Employee otherEmp = createEmployee();
         otherEmp.setName("Saad");
         Store otherStore = createStore();
         otherStore.setName("Hogwarts");
         Exchange obj =  new Exchange(1L, createEmployee(), otherEmp, createStore(), otherStore, LocalDate.now());
         return obj;
-    }
+    }*/
 
 
 }

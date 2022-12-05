@@ -35,6 +35,9 @@ public class EmployeeRepositoryTest {
             Optional<Employee> obj = repository.findById(existingId);
             Assertions.assertTrue(obj.isPresent());
             Assertions.assertEquals(obj.get().getId(), existingId);
+            Assertions.assertEquals(obj.get().getName(), "Sandra de Fatima");
+            Assertions.assertEquals(obj.get().getGender(), 'M');
+            Assertions.assertEquals(obj.get().getEmail(), "sollicitudin@icloud.org");
         });
     }
     @Test
