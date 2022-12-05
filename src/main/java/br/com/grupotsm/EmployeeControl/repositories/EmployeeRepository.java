@@ -15,6 +15,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Optional<Employee> findByCpf(String cpf);
 
     // TODO completar pesquisa
-    @Query("SELECT obj FROM Employee obj")
+    @Query("SELECT obj FROM Employee obj " +
+            "WHERE (obj.dtResignation = NULL)")
     Page<Employee> findAll(Pageable pageable, boolean isActive, boolean isAvailable);
 }
