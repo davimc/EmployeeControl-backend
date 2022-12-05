@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
-@Table(name = "tb_employee")
+@Table(name = "tb_store")
 public class Store implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -19,8 +19,11 @@ public class Store implements Serializable {
     private String name;
     private StoreType type;
 
-    @OneToMany(mappedBy = "store")
-    private List<Employee> employees = new ArrayList<>();
+    @OneToMany(mappedBy = "storeBeloging")
+    private List<Employee> employeesBeloging = new ArrayList<>();
+
+    @OneToMany(mappedBy = "storeCurrent")
+    private List<Employee> employeesCurrent = new ArrayList<>();
     public Store() {
     }
 
@@ -54,12 +57,12 @@ public class Store implements Serializable {
         this.type = type;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public List<Employee> getEmployeesBeloging() {
+        return employeesBeloging;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+    public List<Employee> getEmployeesCurrent() {
+        return employeesCurrent;
     }
 
     @Override
