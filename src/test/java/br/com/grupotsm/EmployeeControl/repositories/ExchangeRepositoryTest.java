@@ -1,6 +1,5 @@
 package br.com.grupotsm.EmployeeControl.repositories;
 
-import br.com.grupotsm.EmployeeControl.entities.Exchange;
 import br.com.grupotsm.EmployeeControl.test.Factory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

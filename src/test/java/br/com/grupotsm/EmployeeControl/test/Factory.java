@@ -2,10 +2,7 @@ package br.com.grupotsm.EmployeeControl.test;
 
 import br.com.grupotsm.EmployeeControl.dto.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.dto.store.StoreDTO;
-import br.com.grupotsm.EmployeeControl.dto.store.StoreDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
-import br.com.grupotsm.EmployeeControl.entities.Exchange;
-import br.com.grupotsm.EmployeeControl.entities.License;
 import br.com.grupotsm.EmployeeControl.entities.Store;
 import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
