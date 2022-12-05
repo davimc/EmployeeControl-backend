@@ -1,14 +1,19 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tb_employee")
-public class Employee implements Serializable {
+public class Employee implements UserDetails, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -19,7 +24,9 @@ public class Employee implements Serializable {
     @Column(length = 1)
     private char gender;
     private String email;
+    @Column(unique = true)
     private String cpf;
+    private String password;
     @Column(columnDefinition = "DATE")
     private LocalDate dtAdmission;
     @Column(columnDefinition = "DATE")
@@ -28,8 +35,8 @@ public class Employee implements Serializable {
     private LocalDate birthDate;
 
     @ManyToOne
-    @JoinColumn(name = "store_origin_id")
-    private Store storeOrigin;
+    @JoinColumn(name = "store_beloging_id")
+    private Store storeBeloging;
     @ManyToOne
     @JoinColumn(name = "store_current_id")
     private Store storeCurrent;
@@ -38,9 +45,12 @@ public class Employee implements Serializable {
     private Set<License> licenses = new HashSet<>();
 */
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private LocalDateTime created;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private LocalDateTime updated;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="tb_employee_role",
+            joinColumns = @JoinColumn(name="employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
     /*@OneToMany(mappedBy = "generatorEmployee")
     private List<Exchange> generatedExchanges = new ArrayList<>();
     @OneToMany(mappedBy = "exchangedEmployee")
@@ -48,28 +58,30 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(Long id, String name, char gender, String email, String cpf, LocalDate dtAdmission, LocalDate birthDate, Store store) {
+    public Employee(Long id, String name, char gender, String email, String cpf, String password, LocalDate dtAdmission, LocalDate birthDate, Store store) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.email = email;
         this.cpf = cpf;
+        this.password = password;
         this.dtAdmission = dtAdmission;
         this.birthDate = birthDate;
-        this.storeOrigin = store;
+        this.storeBeloging = store;
         this.storeCurrent = store;
     }
 
-    public Employee(Long id, String name, char gender, String email, String cpf, LocalDate dtAdmission, LocalDate dtResignation, LocalDate birthDate, Store storeOrigin, Store storeCurrent) {
+    public Employee(Long id, String name, char gender, String email, String cpf, String password, LocalDate dtAdmission, LocalDate dtResignation, LocalDate birthDate, Store storeOrigin, Store storeCurrent) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.email = email;
         this.cpf = cpf;
+        this.password = password;
         this.dtAdmission = dtAdmission;
         this.dtResignation = dtResignation;
         this.birthDate = birthDate;
-        this.storeOrigin = storeOrigin;
+        this.storeBeloging = storeOrigin;
         this.storeCurrent = storeCurrent;
     }
 
@@ -113,6 +125,15 @@ public class Employee implements Serializable {
         this.cpf = cpf;
     }
 
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public LocalDate getDtAdmission() {
         return dtAdmission;
     }
@@ -139,12 +160,12 @@ public class Employee implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public Store getStoreOrigin() {
-        return storeOrigin;
+    public Store getStoreBeloging() {
+        return storeBeloging;
     }
 
-    public void setStoreOrigin(Store store) {
-        this.storeOrigin = store;
+    public void setStoreBeloging(Store store) {
+        this.storeBeloging = store;
     }
 
     public Store getStoreCurrent() {
@@ -159,14 +180,6 @@ public class Employee implements Serializable {
 //        return licenses;
 //    }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
     public LocalDateTime getUpdated() {
         return updated;
     }
@@ -174,6 +187,9 @@ public class Employee implements Serializable {
         this.updated = updated;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
     /*public List<Exchange> getGeneratedExchanges() {
         return generatedExchanges;
     }
@@ -193,5 +209,36 @@ public class Employee implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return cpf;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
