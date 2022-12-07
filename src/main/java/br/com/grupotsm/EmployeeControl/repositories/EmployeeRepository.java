@@ -13,10 +13,9 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Optional<Employee> findByCpf(String cpf);
-
-    // TODO Refatorar essa pesquisa para buscar nas licenças
+    // TODO to implement available employees in findAllActives search
+    // Available is when there are no licenses actives
     @Query("SELECT obj FROM Employee obj " +
-            "WHERE (:isActive = false OR obj.dtResignation IS NULL) " +
-            "OR :isAvailable = true")
-    Page<Employee> findAll(Pageable pageable, boolean isActive, boolean isAvailable);
+            "WHERE (obj.dtResignation IS NOT NULL)")
+    Page<Employee> findAllActives(Pageable pageable);
 }

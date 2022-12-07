@@ -74,10 +74,10 @@ public class EmployeeRepositoryTest {
         });
     }
     @Test
-    public void findAll() {
+    public void findAllActives() {
         Assertions.assertDoesNotThrow(() -> {
             PageRequest pageRequest = PageRequest.of(0,12);
-            Page<Employee> employees = repository.findAll(pageRequest, true, false);
+            Page<Employee> employees = repository.findAllActives(pageRequest);
             Assertions.assertEquals(7, employees.getTotalElements());
         });
     }

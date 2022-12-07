@@ -3,6 +3,7 @@ package br.com.grupotsm.EmployeeControl.services;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
+import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,10 @@ public class EmployeeService implements UserDetailsService {
     private EmployeeRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<EmployeeDTO> findAll(Pageable pageable, boolean isActive, boolean isAvailable) {
-        Page<Employee> obj = repository.findAll(pageable, isActive, isAvailable);
+    public Page<EmployeeDTO> findAll(Pageable pageable, boolean isAvailable) {
+        Page<Employee> obj = repository.findAllActives(pageable);
 
-        return null;
+        return obj.map(EmployeeDTO::new);
     }
 
     @Override
@@ -43,4 +44,10 @@ public class EmployeeService implements UserDetailsService {
     }
 
 
+    public EmployeeDTO findById(Long id) {
+        Employee obj = repository.findById(id).orElseThrow(() -> {
+            throw new ObjectNotFoundException(id, Employee.class);
+        });
+        return new EmployeeDTO(obj);
+    }
 }

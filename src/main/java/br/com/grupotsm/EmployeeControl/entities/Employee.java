@@ -20,7 +20,6 @@ public class Employee implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
     @Column(length = 1)
     private char gender;
     private String email;
@@ -41,9 +40,8 @@ public class Employee implements UserDetails, Serializable {
     @JoinColumn(name = "store_current_id")
     private Store storeCurrent;
 
-    /*@OneToMany(mappedBy = "employee")
-    private Set<License> licenses = new HashSet<>();
-*/
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+    private List<License> licenses = new ArrayList<>();
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private LocalDateTime updated;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -175,9 +173,9 @@ public class Employee implements UserDetails, Serializable {
         this.storeCurrent = storeCurrent;
     }
 
-//    public Set<License> getLicenses() {
-//        return licenses;
-//    }
+    public List<License> getLicenses() {
+        return licenses;
+    }
 
     public LocalDateTime getUpdated() {
         return updated;

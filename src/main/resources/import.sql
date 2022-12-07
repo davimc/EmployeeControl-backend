@@ -4,6 +4,7 @@ INSERT INTO tb_store (name, type) VALUES ('United States',1);
 INSERT INTO tb_store (name, type) VALUES ('Vietnam',2);
 INSERT INTO tb_store (name, type) VALUES ('Brazil',2);
 
+
 INSERT INTO tb_employee (name,email,gender,store_beloging_id, store_current_id,cpf,password,birth_date,dt_admission, dt_resignation) VALUES ('Sandra de Fatima','sollicitudin@icloud.org','M',2,2,'248.686-73','$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG','1988-10-25','2014-08-01','2018-04-20');
 INSERT INTO tb_employee (name,email,gender,store_beloging_id, store_current_id,cpf,password,birth_date,dt_admission, dt_resignation) VALUES ('Astra Brandao','massa.vestibulum@hotmail.net','M',2,2,'286.566-61','$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG','1999-01-27','2018-04-20','2020-11-08');
 INSERT INTO tb_employee (name,email,gender,store_beloging_id, store_current_id,cpf,password,birth_date,dt_admission, dt_resignation) VALUES ('Anthony Chaves','dis.parturient@grupotsm.com','M',3,3,'266.349-16','$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG','1975-10-14','2016-02-06','2018-12-01');
@@ -34,15 +35,14 @@ INSERT INTO tb_employee_role (employee_id, role_id) VALUES (7, 1);
 INSERT INTO tb_employee_role (employee_id, role_id) VALUES (9, 1);
 INSERT INTO tb_employee_role (employee_id, role_id) VALUES (10, 1);
 
-
-
-INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2021-07-13', '2021-08-13', '2021-08-13', 30, 1);
-INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2021-09-13', '2021-10-13', '2021-10-28', 30, 2);
 INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-10-13', '2022-10-14', '2022-10-14', 1, 3);
-INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 10);
+INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-10-13', '2022-10-18', '2022-10-14', 2, 2);
+INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-10-13', '2022-10-24', '2022-10-14', 30, 1);
+
+INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 9);
 INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 7);
 INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 8);
---
---
+
+
 --INSERT INTO tb_exchange(dt_start, dt_expected, generator_Employee_id, exchanged_employee_id, generator_store_beloging_id, store_current_id, exchanged_store_beloging_id, store_current_id) VALUES (TIMESTAMP '2021-07-13T20:50:07.12345Z', TIMESTAMP '2021-08-13T20:50:07.12345Z',1,2,1,2)
 --INSERT INTO tb_exchange(dt_start, dt_expected, generator_Employee_id, exchanged_employee_id, generator_store_beloging_id, store_current_id, exchanged_store_beloging_id, store_current_id) VALUES (TIMESTAMP '2022-01-13T20:50:07.12345Z', TIMESTAMP '2022-08-13T20:50:07.12345Z',3,2,4,2)
