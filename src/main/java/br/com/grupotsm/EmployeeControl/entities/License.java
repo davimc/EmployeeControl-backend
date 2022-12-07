@@ -20,7 +20,7 @@ public class License implements Serializable {
     private LocalDate dtStart;
     private LocalDate dtExpected;
     private LocalDate dtEnd;
-    private ReasonType reason;
+    private Integer reason;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant created;
@@ -40,7 +40,7 @@ public class License implements Serializable {
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
         this.dtEnd = dtEnd;
-        this.reason = reason;
+        this.reason = reason.getPeriodSuggestion();
         this.employee = employee;
     }
 
@@ -77,11 +77,11 @@ public class License implements Serializable {
     }
 
     public ReasonType getReason() {
-        return reason;
+        return ReasonType.toEnum(reason);
     }
 
     public void setReason(ReasonType reason) {
-        this.reason = reason;
+        this.reason = reason.getPeriodSuggestion();
     }
 
     public Instant getCreated() {
