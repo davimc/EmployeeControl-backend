@@ -31,6 +31,14 @@ public class EmployeeService implements UserDetailsService {
 
         return obj.map(EmployeeDTO::new);
     }
+    @Transactional(readOnly = true)
+    public EmployeeDTO findById(Long id) {
+        Employee obj = repository.findById(id).orElseThrow(() -> {
+            throw new ObjectNotFoundException(id, Employee.class);
+        });
+        return new EmployeeDTO(obj);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,10 +52,5 @@ public class EmployeeService implements UserDetailsService {
     }
 
 
-    public EmployeeDTO findById(Long id) {
-        Employee obj = repository.findById(id).orElseThrow(() -> {
-            throw new ObjectNotFoundException(id, Employee.class);
-        });
-        return new EmployeeDTO(obj);
-    }
+
 }
