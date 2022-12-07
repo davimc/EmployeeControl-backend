@@ -17,8 +17,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     // TODO completar pesquisa
     @Query("SELECT obj FROM Employee obj " +
             "WHERE (:isActive = false OR obj.dtResignation IS NULL) " +
-            "AND :isAvailable = true OR CURDATE IS BETWEEN ( " +
-            "SELECT l FROM obj.licenses l " +
-            "WHERE ")
+            "OR :isAvailable = true")
     Page<Employee> findAll(Pageable pageable, boolean isActive, boolean isAvailable);
 }
