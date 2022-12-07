@@ -36,12 +36,12 @@ INSERT INTO tb_employee_role (employee_id, role_id) VALUES (10, 1);
 
 
 
---INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2021-07-13', '2021-08-13', '2021-08-13', 30, 1);
---INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2021-09-13', '2021-10-13', '2021-10-28', 30, 2);
---INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-10-13', '2022-10-14', '2022-10-14', 1, 3);
---INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 10);
---INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 11);
---INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 12);
+INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2021-07-13', '2021-08-13', '2021-08-13', 30, 1);
+INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2021-09-13', '2021-10-13', '2021-10-28', 30, 2);
+INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-10-13', '2022-10-14', '2022-10-14', 1, 3);
+INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 10);
+INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 7);
+INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 8);
 --
 --
 --INSERT INTO tb_exchange(dt_start, dt_expected, generator_Employee_id, exchanged_employee_id, generator_store_beloging_id, store_current_id, exchanged_store_beloging_id, store_current_id) VALUES (TIMESTAMP '2021-07-13T20:50:07.12345Z', TIMESTAMP '2021-08-13T20:50:07.12345Z',1,2,1,2)
