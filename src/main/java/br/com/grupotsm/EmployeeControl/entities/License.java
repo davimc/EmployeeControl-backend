@@ -22,8 +22,7 @@ public class License implements Serializable {
     private LocalDate dtEnd;
     private Integer reason;
 
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant created;
+    private LocalDate created;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 
     private Instant updated;
@@ -84,11 +83,11 @@ public class License implements Serializable {
         this.reason = reason.getPeriodSuggestion();
     }
 
-    public Instant getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(Instant created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 

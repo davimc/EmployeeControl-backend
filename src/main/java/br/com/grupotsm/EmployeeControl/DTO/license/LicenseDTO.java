@@ -12,7 +12,7 @@ public class LicenseDTO implements Serializable {
     private Long id;
     private Long employeeId;
     private String employeeName;
-    private Instant created;
+    private LocalDate created;
     private LocalDate dtStart;
     private LocalDate dtExpected;
     private LocalDate dtEnd;
@@ -21,7 +21,7 @@ public class LicenseDTO implements Serializable {
     public LicenseDTO() {
     }
 
-    public LicenseDTO(Long id, Long employeeId, String employeeName, Instant created, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd) {
+    public LicenseDTO(Long id, Long employeeId, String employeeName, LocalDate created, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd) {
         this.id = id;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
@@ -65,11 +65,11 @@ public class LicenseDTO implements Serializable {
         this.employeeName = employeeName;
     }
 
-    public Instant getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(Instant created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 
