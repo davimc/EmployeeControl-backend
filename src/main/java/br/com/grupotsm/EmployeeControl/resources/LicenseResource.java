@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/licenses")
 public class LicenseResource {
@@ -16,8 +18,11 @@ public class LicenseResource {
     private LicenseService service;
 
     @GetMapping
-    public ResponseEntity<Page<LicenseDTO>> findAll(Pageable pageable, @RequestParam(value = "justActives", defaultValue = "false") boolean justActives) {
-        return ResponseEntity.ok().body(service.findAllActives(pageable, justActives));
+    public ResponseEntity<Page<LicenseDTO>> findAll(Pageable pageable,
+                                                    @RequestParam(value="dtMin", defaultValue = "")String min,
+                                                    @RequestParam(value="dtMax", defaultValue = "")String max,
+                                                    @RequestParam(value = "justActives", defaultValue = "false") boolean justActives) {
+        return ResponseEntity.ok().body(service.findAllActives(pageable, min, max, justActives));
     }
     @GetMapping("/{id}")
     public ResponseEntity<LicenseDTO> findById(@PathVariable Long id) {

@@ -36,8 +36,8 @@ INSERT INTO tb_employee_role (employee_id, role_id) VALUES (9, 1);
 INSERT INTO tb_employee_role (employee_id, role_id) VALUES (10, 1);
 
 INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-10-13', '2022-10-14', '2022-10-14', 1, 3);
-INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-10-13', '2022-10-18', '2022-10-14', 2, 2);
-INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-10-13', '2022-10-24', '2022-10-14', 30, 1);
+INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-11-13', '2022-10-18', '2022-10-14', 2, 2);
+INSERT INTO tb_license(dt_Start, dt_expected, dt_End, reason, employee_id) VALUES ('2022-12-13', '2022-10-24', '2022-10-14', 30, 1);
 
 INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 9);
 INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 7);

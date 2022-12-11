@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 @Service
@@ -19,10 +21,14 @@ public class LicenseService {
     private LicenseRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<LicenseDTO> findAllActives(Pageable pageable, boolean justActives) {
-        Page<License> obj = repository.findAllActives(pageable, justActives);
+    public Page<LicenseDTO> findAllActives(Pageable pageable, String min, String max, boolean justActives) {
+        LocalDate dtMin = min.equals("") ? LocalDate.now().minusYears(1)
+                : LocalDate.parse(min);
+        LocalDate dtMax = max.equals("") ? LocalDate.now()
+                : LocalDate.parse(max);
+        Page<LicenseDTO> dto = repository.findAllActives(pageable, dtMin, dtMax, justActives);
 
-        return obj.map(LicenseDTO::new);
+        return dto;
     }
     @Transactional(readOnly = true)
     public LicenseDTO findById(Long id) {
