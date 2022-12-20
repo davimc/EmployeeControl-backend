@@ -25,12 +25,7 @@ public class StoreService {
 
     @Transactional(readOnly = true)
     public List<StoreDTO> findStores(String name, Integer type) {
-        List<Store> obj;
-        if(name.equals("") && type==-1)
-            obj = repository.findAll();
-        else {
-            obj = repository.findByNameOrType(name, type);
-        }
+        List<Store> obj = repository.findByNameOrType(name, type);
         return obj.stream().map(StoreDTO::new).collect(Collectors.toList());
     }
     @Transactional(readOnly = true)

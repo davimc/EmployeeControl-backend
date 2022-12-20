@@ -23,7 +23,7 @@ public class StoreResource {
     }
     @GetMapping()
     public ResponseEntity<List<StoreDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name,
-                                                  @RequestParam(name = "type", defaultValue = "-1") Integer type) {
+                                                  @RequestParam(name = "type", defaultValue = "0") Integer type) {
         return ResponseEntity.ok().body(service.findStores(name,type));
     }
     @GetMapping(value = "/{id}")

@@ -1,8 +1,8 @@
-INSERT INTO tb_store (name, type) VALUES ('Italy', 0);
-INSERT INTO tb_store (name, type) VALUES ('Russian',1);
-INSERT INTO tb_store (name, type) VALUES ('United States',1);
-INSERT INTO tb_store (name, type) VALUES ('Vietnam',2);
-INSERT INTO tb_store (name, type) VALUES ('Brazil',2);
+INSERT INTO tb_store (name, type) VALUES ('Italy', 1);
+INSERT INTO tb_store (name, type) VALUES ('Russian',2);
+INSERT INTO tb_store (name, type) VALUES ('United States',2);
+INSERT INTO tb_store (name, type) VALUES ('Vietnam',3);
+INSERT INTO tb_store (name, type) VALUES ('Brazil',3);
 
 
 INSERT INTO tb_employee (name,email,gender,store_beloging_id, store_current_id,cpf,password,birth_date,dt_admission, dt_resignation) VALUES ('Sandra de Fatima','sollicitudin@icloud.org','M',2,2,'248.686-73','$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG','1988-10-25','2014-08-01','2018-04-20');

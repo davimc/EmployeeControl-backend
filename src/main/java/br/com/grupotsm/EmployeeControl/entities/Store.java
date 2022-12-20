@@ -4,8 +4,6 @@ import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -17,7 +15,7 @@ public class Store implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private StoreType type;
+    private Integer type;
 
     @OneToMany(mappedBy = "storeBeloging")
     private List<Employee> employeesBeloging = new ArrayList<>();
@@ -30,7 +28,7 @@ public class Store implements Serializable {
     public Store(Long id, String name, StoreType type) {
         this.id = id;
         this.name = name;
-        this.type = type;
+        this.type = type.getCod();
     }
 
     public Long getId() {
@@ -50,11 +48,11 @@ public class Store implements Serializable {
     }
 
     public StoreType getType() {
-        return type;
+        return StoreType.toEnum(type);
     }
 
     public void setType(StoreType type) {
-        this.type = type;
+        this.type = type.getCod();
     }
 
     public List<Employee> getEmployeesBeloging() {
