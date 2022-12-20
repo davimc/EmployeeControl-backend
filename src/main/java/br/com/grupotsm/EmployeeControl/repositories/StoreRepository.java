@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface StoreRepository extends JpaRepository<Store, Long> {
     @Query("SELECT obj FROM Store obj " +
             "WHERE (:type = 0 OR obj.type = :type ) " +
-            "AND (obj.name LIKE CONCAT(:name,'%'))")
+            "AND (UPPER(obj.name) LIKE UPPER(CONCAT(:name,'%')))")
     List<Store> findByNameOrType(String name, Integer type);
 }
