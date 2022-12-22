@@ -3,7 +3,9 @@ package br.com.grupotsm.EmployeeControl.test;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.DTO.store.StoreDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
+import br.com.grupotsm.EmployeeControl.entities.License;
 import br.com.grupotsm.EmployeeControl.entities.Store;
+import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 
 import java.time.LocalDate;
@@ -22,15 +24,17 @@ public class Factory {
 
         return dto;
     }
-    /*public static License createLicenseActive() {
-        License obj = new License(1L, LocalDate.now(), LocalDate.now().plusDays(2), ReasonType.CERTIFICATE, "Conjuntivite", new Employee());
+
+    public static License createLicenseActive() {
+        License obj = new License(1L, LocalDate.now(), LocalDate.now().plusMonths(1L), null, ReasonType.VACATION, createEmployee());
         return obj;
     }
 
     public static License createLicenseInactive() {
-        License obj = new License(1L, LocalDate.now().minusDays(4), LocalDate.now().minusDays(3), ReasonType.ABSCENSE, "Não informou", new Employee());
+        License obj = new License(1L, LocalDate.now().minusDays(4), LocalDate.now(),LocalDate.now().minusDays(3), ReasonType.ABSCENSE, new Employee());
         return obj;
     }
+    /*
 
     public static EmployeeDTO createLicenseDTO() {
         Employee obj = createEmployee();

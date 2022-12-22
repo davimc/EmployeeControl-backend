@@ -184,6 +184,10 @@ public class Employee implements UserDetails, Serializable {
         this.updated = updated;
     }
 
+    public boolean isActive() {
+        return (this.getLicenses().stream().filter(l -> l.isActive()).collect(Collectors.toList()).size() == 0);
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
