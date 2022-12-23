@@ -1,6 +1,6 @@
 package br.com.grupotsm.EmployeeControl.DTO.store;
 
-import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDelimitedDTO;
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
 import br.com.grupotsm.EmployeeControl.entities.Store;
 
 import java.io.Serializable;
@@ -15,13 +15,13 @@ public class StoreExpandedDTO implements Serializable {
     private String name;
     private String typeName;
 
-    private List<EmployeeDelimitedDTO> employeesBeloging = new ArrayList<>();
-    private List<EmployeeDelimitedDTO> employeesCurrent = new ArrayList<>();
+    private List<EmployeeShortDTO> employeesBeloging = new ArrayList<>();
+    private List<EmployeeShortDTO> employeesCurrent = new ArrayList<>();
 
     public StoreExpandedDTO() {
     }
 
-    public StoreExpandedDTO(Long id, String name, String typeName, List<EmployeeDelimitedDTO> employeesBeloging, List<EmployeeDelimitedDTO> employeesCurrent) {
+    public StoreExpandedDTO(Long id, String name, String typeName, List<EmployeeShortDTO> employeesBeloging, List<EmployeeShortDTO> employeesCurrent) {
         this.id = id;
         this.name = name;
         this.typeName = typeName;
@@ -33,8 +33,8 @@ public class StoreExpandedDTO implements Serializable {
         id = obj.getId();
         name = obj.getName();
         typeName = obj.getType().getName();
-        employeesCurrent = obj.getEmployeesCurrent().stream().map(EmployeeDelimitedDTO::new).collect(Collectors.toList());
-        employeesBeloging = obj.getEmployeesBeloging().stream().map(EmployeeDelimitedDTO::new).collect(Collectors.toList());
+        employeesCurrent = obj.getEmployeesCurrent().stream().map(EmployeeShortDTO::new).collect(Collectors.toList());
+        employeesBeloging = obj.getEmployeesBeloging().stream().map(EmployeeShortDTO::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -61,19 +61,19 @@ public class StoreExpandedDTO implements Serializable {
         this.typeName = typeName;
     }
 
-    public List<EmployeeDelimitedDTO> getEmployeesBeloging() {
+    public List<EmployeeShortDTO> getEmployeesBeloging() {
         return employeesBeloging;
     }
 
-    public void setEmployeesBeloging(List<EmployeeDelimitedDTO> employeesBeloging) {
+    public void setEmployeesBeloging(List<EmployeeShortDTO> employeesBeloging) {
         this.employeesBeloging = employeesBeloging;
     }
 
-    public List<EmployeeDelimitedDTO> getEmployeesCurrent() {
+    public List<EmployeeShortDTO> getEmployeesCurrent() {
         return employeesCurrent;
     }
 
-    public void setEmployeesCurrent(List<EmployeeDelimitedDTO> employeesCurrent) {
+    public void setEmployeesCurrent(List<EmployeeShortDTO> employeesCurrent) {
         this.employeesCurrent = employeesCurrent;
     }
 }

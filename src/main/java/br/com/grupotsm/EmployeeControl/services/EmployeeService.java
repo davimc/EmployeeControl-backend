@@ -1,6 +1,7 @@
 package br.com.grupotsm.EmployeeControl.services;
 
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
@@ -26,10 +27,10 @@ public class EmployeeService implements UserDetailsService {
     private EmployeeRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<EmployeeDTO> findAll(Pageable pageable, boolean isAvailable) {
+    public Page<EmployeeShortDTO> findAll(Pageable pageable, boolean isAvailable) {
         Page<Employee> obj = repository.findAllActives(pageable);
 
-        return obj.map(EmployeeDTO::new);
+        return obj.map(EmployeeShortDTO::new);
     }
     @Transactional(readOnly = true)
     public EmployeeDTO findById(Long id) {

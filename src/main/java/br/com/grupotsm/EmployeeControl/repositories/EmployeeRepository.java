@@ -16,6 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     // TODO to implement available employees in findAllActives search
     // Available is when there are no licenses actives
     @Query("SELECT obj FROM Employee obj " +
-            "WHERE (obj.dtResignation IS NULL)")
+            "WHERE (obj.dtResignation IS NULL) " +
+            "ORDER BY obj.storeCurrent.name")
     Page<Employee> findAllActives(Pageable pageable);
 }

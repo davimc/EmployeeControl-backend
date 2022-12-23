@@ -1,30 +1,37 @@
 package br.com.grupotsm.EmployeeControl.DTO.employee;
 
 import br.com.grupotsm.EmployeeControl.entities.Employee;
+import br.com.grupotsm.EmployeeControl.entities.enums.EmployeeState;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
-public class EmployeeDelimitedDTO implements Serializable {
+public class EmployeeShortDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private long id;
     private String name;
     private String cpf;
+    private String store;
+    private String state;
 
 
-    public EmployeeDelimitedDTO() {
+    public EmployeeShortDTO() {
     }
 
-    public EmployeeDelimitedDTO(long id, String name, String cpf) {
+    public EmployeeShortDTO(long id, String name, String cpf, String store, String state) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
+        this.store = store;
+        this.state = state;
     }
-    public EmployeeDelimitedDTO(Employee obj) {
+
+    public EmployeeShortDTO(Employee obj) {
         id = obj.getId();
         name = obj.getName();
         cpf = obj.getCpf();
+        store = obj.getStoreCurrent().getName();
+        state = EmployeeState.getState(obj).getDescription();
     }
 
     public long getId() {
@@ -51,4 +58,19 @@ public class EmployeeDelimitedDTO implements Serializable {
         this.cpf = cpf;
     }
 
+    public String getStore() {
+        return store;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }
