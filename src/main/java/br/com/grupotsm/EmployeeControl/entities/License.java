@@ -119,4 +119,18 @@ public class License implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public boolean isActive() {
+        LocalDate today = LocalDate.now();
+        boolean active = isValid();
+        return active;
+    }
+    private boolean isValid() {
+        LocalDate today = LocalDate.now();
+        boolean isNotFinished = dtEnd == null;
+        boolean isAfterStart = dtStart.isBefore(today) || dtStart.isEqual(today);
+        boolean isBeforeExpected = dtExpected.isAfter(today) || dtExpected.isEqual(today);
+
+        return isNotFinished && isAfterStart && isBeforeExpected;
+    }
 }
