@@ -1,5 +1,7 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
+import br.com.grupotsm.EmployeeControl.entities.enums.ExpedientType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,6 +22,8 @@ public class Exchange implements Serializable {
     private LocalDateTime updatedAt;
     private LocalDate dtStart;
 
+    private Integer expedient;
+
     @ManyToOne()
     @JoinColumn(name = "employee_generator_id")
     private Employee employeeGenerator;
@@ -30,11 +34,12 @@ public class Exchange implements Serializable {
     public Exchange() {
     }
 
-    public Exchange(Long id, LocalDate dtStart, Employee employeeGenerator, Employee employeeChanged) {
+    public Exchange(Long id, LocalDate dtStart, ExpedientType expedient, Employee employeeGenerator, Employee employeeExchanged) {
         this.id = id;
         this.dtStart = dtStart;
+        this.expedient = expedient.getCod();
         this.employeeGenerator = employeeGenerator;
-        this.employeeExchanged = employeeChanged;
+        this.employeeExchanged = employeeExchanged;
     }
 
     public Long getId() {
@@ -67,6 +72,14 @@ public class Exchange implements Serializable {
 
     public void setDtStart(LocalDate dtStart) {
         this.dtStart = dtStart;
+    }
+
+    public ExpedientType getExpedient() {
+        return ExpedientType.toEnum(expedient);
+    }
+
+    public void setExpedient(ExpedientType expedient) {
+        this.expedient = expedient.getCod();
     }
 
     public Employee getEmployeeGenerator() {
