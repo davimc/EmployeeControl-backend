@@ -6,7 +6,7 @@ public enum RequestState {
     ACCEPT(2,"Aceito"),
     REFUSED(3, "Recusado"),
     WAITING(4, "Aguardando resposta"),
-    CANCELED(4, "Cancelado");
+    CANCELED(5, "Cancelado");
 
     private int cod;
     private String description;
