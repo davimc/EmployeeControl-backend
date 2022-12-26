@@ -1,0 +1,87 @@
+package br.com.grupotsm.EmployeeControl.DTO.request;
+
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
+import br.com.grupotsm.EmployeeControl.entities.Exchange;
+import br.com.grupotsm.EmployeeControl.entities.Request;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public class RequestDTO {
+    private Long id;
+    private LocalDateTime createdAt;
+    private LocalDate dtStart;
+    private LocalDate dtExpected;
+    private LocalDate dtEnd;
+    private String state;
+
+    private EmployeeShortDTO Employee;
+
+    public RequestDTO() {
+    }
+
+    public RequestDTO(Long id, LocalDateTime createdAt, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, String state) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.dtStart = dtStart;
+        this.dtExpected = dtExpected;
+        this.dtEnd = dtEnd;
+        this.state = state;
+    }
+    public RequestDTO(Request obj) {
+        this.id = obj.getId();
+        this.createdAt = obj.getCreatedAt();
+        this.dtStart = obj.getDtAcceptedStart() == null? obj.getDtProposedStart(): obj.getDtAcceptedStart();
+        this.dtExpected = obj.getDtAcceptedEnd() == null? obj.getDtProposedEnd() : obj.getDtAcceptedEnd();
+        this.dtEnd = obj.getDtEnd();
+        this.state = obj.getState().getDescription();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getDtStart() {
+        return dtStart;
+    }
+
+    public void setDtStart(LocalDate dtStart) {
+        this.dtStart = dtStart;
+    }
+
+    public LocalDate getDtExpected() {
+        return dtExpected;
+    }
+
+    public void setDtExpected(LocalDate dtExpected) {
+        this.dtExpected = dtExpected;
+    }
+
+    public LocalDate getDtEnd() {
+        return dtEnd;
+    }
+
+    public void setDtEnd(LocalDate dtEnd) {
+        this.dtEnd = dtEnd;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+}

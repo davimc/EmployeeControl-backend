@@ -18,10 +18,11 @@ public class Request implements Serializable {
     private Long id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private LocalDate dtStart;
-    private LocalDate dtExpected;
+    private LocalDate dtProposedStart;
+    private LocalDate dtProposedEnd;
 
-    private LocalDate dtAccepted;
+    private LocalDate dtAcceptedStart;
+    private LocalDate dtAcceptedEnd;
     private LocalDate dtEnd;
     private Integer state;
 
@@ -36,12 +37,11 @@ public class Request implements Serializable {
     public Request() {
     }
 
-    public Request(Long id, LocalDate dtStart, LocalDate dtExpected, LocalDate dtAccepted, LocalDate dtEnd, RequestState state, Employee employee, Exchange exchange) {
+    public Request(Long id, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, RequestState state, Employee employee, Exchange exchange) {
         this.id = id;
-        this.dtStart = dtStart;
-        this.dtExpected = dtExpected;
+        this.dtProposedStart = dtStart;
+        this.dtProposedEnd = dtExpected;
         this.dtEnd = dtEnd;
-        this.dtAccepted = dtAccepted;
         this.state = state.getCod();
         this.employee = employee;
         this.exchange = exchange;
@@ -71,20 +71,36 @@ public class Request implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDate getDtStart() {
-        return dtStart;
+    public LocalDate getDtProposedStart() {
+        return dtProposedStart;
     }
 
-    public void setDtStart(LocalDate dtStart) {
-        this.dtStart = dtStart;
+    public void setDtProposedStart(LocalDate dtProposedStart) {
+        this.dtProposedStart = dtProposedStart;
     }
 
-    public LocalDate getDtExpected() {
-        return dtExpected;
+    public LocalDate getDtProposedEnd() {
+        return dtProposedEnd;
     }
 
-    public void setDtExpected(LocalDate dtExpected) {
-        this.dtExpected = dtExpected;
+    public void setDtProposedEnd(LocalDate dtProposedEnd) {
+        this.dtProposedEnd = dtProposedEnd;
+    }
+
+    public LocalDate getDtAcceptedStart() {
+        return dtAcceptedStart;
+    }
+
+    public void setDtAcceptedStart(LocalDate dtAcceptedStart) {
+        this.dtAcceptedStart = dtAcceptedStart;
+    }
+
+    public LocalDate getDtAcceptedEnd() {
+        return dtAcceptedEnd;
+    }
+
+    public void setDtAcceptedEnd(LocalDate dtAcceptedEnd) {
+        this.dtAcceptedEnd = dtAcceptedEnd;
     }
 
     public LocalDate getDtEnd() {
@@ -93,14 +109,6 @@ public class Request implements Serializable {
 
     public void setDtEnd(LocalDate dtEnd) {
         this.dtEnd = dtEnd;
-    }
-
-    public LocalDate getDtAccepted() {
-        return dtAccepted;
-    }
-
-    public void setDtAccepted(LocalDate dtAccepted) {
-        this.dtAccepted = dtAccepted;
     }
 
     public RequestState getState() {

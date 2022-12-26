@@ -50,6 +50,6 @@ INSERT INTO tb_exchange_temporary(id,created_at, dt_start, Employee_generator_id
 INSERT INTO tb_exchange_temporary(id,created_at, dt_start, Employee_generator_id, dt_expected,expedient) VALUES (4,TIMESTAMP '2022-01-13T20:50:07.12345Z', '2022-08-13',8, '2022-08-16',1)
 
 
-INSERT INTO tb_request(id, created_at, dt_Start, dt_expected, dt_end, state, employee_id, exchange_id) VALUES (1, TIMESTAMP '2022-01-13T20:50:07.12345Z',  '2022-08-13', '2022-08-16', null, 1, 7, 4);
-INSERT INTO tb_request(id, created_at, dt_Start, dt_expected, dt_end, state, employee_id, exchange_id) VALUES (2, TIMESTAMP '2022-01-13T20:50:07.12345Z',  '2022-08-13', '2022-08-16', null, 1, 9, 4);
-INSERT INTO tb_request(id, created_at, dt_Start, dt_expected, dt_end, state, employee_id, exchange_id) VALUES (3, TIMESTAMP '2022-01-13T20:50:07.12345Z',  '2022-08-13', '2022-08-16', null, 2, 1, 5);
+INSERT INTO tb_request(id, created_at, dt_proposed_start, dt_proposed_end, dt_end, state, employee_id, exchange_id) VALUES (1, TIMESTAMP '2022-01-13T20:50:07.12345Z',  '2022-08-13', '2022-08-16', null, 1, 7, 3);
+INSERT INTO tb_request(id, created_at, dt_proposed_start, dt_proposed_end, dt_end, state, employee_id, exchange_id) VALUES (2, TIMESTAMP '2022-01-13T20:50:07.12345Z',  '2022-08-13', '2022-08-16', null, 1, 9, 4);
+INSERT INTO tb_request(id, created_at, dt_proposed_start, dt_proposed_end, dt_end, state, employee_id, exchange_id) VALUES (3, TIMESTAMP '2022-01-13T20:50:07.12345Z',  '2022-08-13', '2022-08-16', null, 2, 1, 4);
