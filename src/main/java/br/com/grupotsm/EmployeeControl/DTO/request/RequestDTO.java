@@ -4,10 +4,12 @@ import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
 import br.com.grupotsm.EmployeeControl.entities.Exchange;
 import br.com.grupotsm.EmployeeControl.entities.Request;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class RequestDTO {
+public class RequestDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private LocalDateTime createdAt;
     private LocalDate dtStart;

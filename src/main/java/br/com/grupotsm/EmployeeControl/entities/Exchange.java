@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,6 +33,8 @@ public class Exchange implements Serializable {
     @JoinColumn(name = "employee_exchanged_id")
     private Employee employeeExchanged;
 
+    @OneToMany(mappedBy = "exchange")
+    private List<Request> requests = new ArrayList<>();
     public Exchange() {
     }
 
@@ -96,6 +100,10 @@ public class Exchange implements Serializable {
 
     public void setEmployeeExchanged(Employee employeeExchanged) {
         this.employeeExchanged = employeeExchanged;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
     }
 
     @Override

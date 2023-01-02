@@ -49,10 +49,8 @@ public class Employee implements UserDetails, Serializable {
             joinColumns = @JoinColumn(name="employee_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-    /*@OneToMany(mappedBy = "generatorEmployee")
-    private List<Exchange> generatedExchanges = new ArrayList<>();
-    @OneToMany(mappedBy = "exchangedEmployee")
-    private List<Exchange> receivedExchanges = new ArrayList<>();*/
+    @OneToMany(mappedBy = "employee")
+    private List<Request> requests = new ArrayList<>();
     public Employee() {
     }
 
@@ -191,13 +189,10 @@ public class Employee implements UserDetails, Serializable {
     public Set<Role> getRoles() {
         return roles;
     }
-    /*public List<Exchange> getGeneratedExchanges() {
-        return generatedExchanges;
-    }
 
-    public List<Exchange> getReceivedExchanges() {
-        return receivedExchanges;
-    }*/
+    public List<Request> getRequests() {
+        return requests;
+    }
 
     @Override
     public boolean equals(Object o) {

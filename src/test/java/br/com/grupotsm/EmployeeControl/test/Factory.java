@@ -2,9 +2,8 @@ package br.com.grupotsm.EmployeeControl.test;
 
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.DTO.store.StoreDTO;
-import br.com.grupotsm.EmployeeControl.entities.Employee;
-import br.com.grupotsm.EmployeeControl.entities.License;
-import br.com.grupotsm.EmployeeControl.entities.Store;
+import br.com.grupotsm.EmployeeControl.entities.*;
+import br.com.grupotsm.EmployeeControl.entities.enums.ExpedientType;
 import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 
@@ -56,14 +55,13 @@ public class Factory {
 
         return dto;
     }
-    /*public static Exchange createExchange() {
-        Employee otherEmp = createEmployee();
-        otherEmp.setName("Saad");
-        Store otherStore = createStore();
-        otherStore.setName("Hogwarts");
-        Exchange obj =  new Exchange(1L, createEmployee(), otherEmp, createStore(), otherStore, LocalDate.now());
+    public static Exchange createExchange() {
+        Exchange obj =  new Exchange(1L, LocalDate.now(), ExpedientType.AFETERNOON, createEmployee(), null);
         return obj;
-    }*/
-
+    }
+    public static ExchangeTemporary createExchangeTemporary() {
+        ExchangeTemporary obj =  new ExchangeTemporary(1L, LocalDate.now(), ExpedientType.NOCTURNAL, createEmployee(), null, LocalDate.now().plusDays(30), null);
+        return obj;
+    }
 
 }
