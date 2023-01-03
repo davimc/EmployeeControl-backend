@@ -1,6 +1,7 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
 import br.com.grupotsm.EmployeeControl.entities.enums.ExpedientType;
+import br.com.grupotsm.EmployeeControl.entities.enums.ExchangeState;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Exchange implements Serializable {
     private LocalDate dtStart;
 
     private Integer expedient;
+    private Integer state;
 
     @ManyToOne()
     @JoinColumn(name = "employee_generator_id")
@@ -38,10 +40,11 @@ public class Exchange implements Serializable {
     public Exchange() {
     }
 
-    public Exchange(Long id, LocalDate dtStart, ExpedientType expedient, Employee employeeGenerator, Employee employeeExchanged) {
+    public Exchange(Long id, LocalDate dtStart, ExpedientType expedient, ExchangeState state, Employee employeeGenerator, Employee employeeExchanged) {
         this.id = id;
         this.dtStart = dtStart;
         this.expedient = expedient.getCod();
+        this.state = state.getCod();
         this.employeeGenerator = employeeGenerator;
         this.employeeExchanged = employeeExchanged;
     }
@@ -84,6 +87,14 @@ public class Exchange implements Serializable {
 
     public void setExpedient(ExpedientType expedient) {
         this.expedient = expedient.getCod();
+    }
+
+    public ExchangeState getState() {
+        return ExchangeState.toEnum(state);
+    }
+
+    public void setState(ExchangeState state) {
+        this.state = state.getCod();
     }
 
     public Employee getEmployeeGenerator() {

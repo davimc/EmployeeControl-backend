@@ -15,10 +15,10 @@ import java.time.LocalDate;
 public interface ExchangeRepository extends JpaRepository<Exchange, Long> {
     @Query("SELECT obj " +
             "FROM Exchange obj " +
-            "WHERE :justActives = False " +
+            "WHERE (:state = 0 OR :state = obj.state) " +
+            "AND (:name IS NULL OR obj.employeeGenerator.name LIKE CONCAT(:name, '%'))" +
             "AND obj.dtStart BETWEEN :dtMin AND :dtMax")
-    Page<Exchange> findAllActives(Pageable pageable, LocalDate dtMin, LocalDate dtMax, boolean justActives);
-
+    Page<Exchange> findAllActives(Pageable pageable, LocalDate dtMin, LocalDate dtMax, Integer state, String name);
     /*Query("SELECT obj " +
                   "FROM Exchange obj " +
                   "WHERE (:justActives = False OR" +

@@ -5,6 +5,7 @@ import br.com.grupotsm.EmployeeControl.DTO.store.StoreDTO;
 import br.com.grupotsm.EmployeeControl.entities.*;
 import br.com.grupotsm.EmployeeControl.entities.enums.ExpedientType;
 import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
+import br.com.grupotsm.EmployeeControl.entities.enums.ExchangeState;
 import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 
 import java.time.LocalDate;
@@ -56,11 +57,11 @@ public class Factory {
         return dto;
     }
     public static Exchange createExchange() {
-        Exchange obj =  new Exchange(1L, LocalDate.now(), ExpedientType.AFETERNOON, createEmployee(), null);
+        Exchange obj =  new Exchange(1L, LocalDate.now(), ExpedientType.AFETERNOON, ExchangeState.PENDING, createEmployee(), null);
         return obj;
     }
     public static ExchangeTemporary createExchangeTemporary() {
-        ExchangeTemporary obj =  new ExchangeTemporary(1L, LocalDate.now(), ExpedientType.NOCTURNAL, createEmployee(), null, LocalDate.now().plusDays(30), null);
+        ExchangeTemporary obj =  new ExchangeTemporary(1L, LocalDate.now(), ExpedientType.NOCTURNAL, ExchangeState.PENDING, createEmployee(), null, LocalDate.now().plusDays(30), null);
         return obj;
     }
 

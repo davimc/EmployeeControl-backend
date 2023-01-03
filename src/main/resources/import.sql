@@ -44,10 +44,10 @@ INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021
 INSERT INTO tb_license(dt_Start, dt_expected, reason, employee_id) VALUES ('2021-01-13', '2023-01-13', 30, 8);
 
 
-INSERT INTO tb_exchange(id,created_at, dt_start, Employee_generator_id, employee_exchanged_id, expedient) VALUES (1,TIMESTAMP '2022-01-13T20:50:07.12345Z','2021-07-13',1,2,1)
-INSERT INTO tb_exchange_temporary(id,created_at, dt_start, Employee_generator_id, employee_exchanged_id, dt_expected,expedient) VALUES (2,TIMESTAMP '2022-01-13T20:50:07.12345Z', '2022-08-13',3,2, '2022-08-16',3)
-INSERT INTO tb_exchange_temporary(id,created_at, dt_start, Employee_generator_id, dt_expected,expedient) VALUES (3,TIMESTAMP '2022-01-13T20:50:07.12345Z', '2022-08-13',10, '2022-08-16',2)
-INSERT INTO tb_exchange_temporary(id,created_at, dt_start, Employee_generator_id, dt_expected,expedient) VALUES (4,TIMESTAMP '2022-01-13T20:50:07.12345Z', '2022-08-13',8, '2022-08-16',1)
+INSERT INTO tb_exchange(id,created_at, dt_start, Employee_generator_id, employee_exchanged_id, expedient,state) VALUES (1,TIMESTAMP '2022-01-13T20:50:07.12345Z','2021-07-13',1,2,1,1)
+INSERT INTO tb_exchange_temporary(id,created_at, dt_start, Employee_generator_id, employee_exchanged_id, dt_expected,expedient,state) VALUES (2,TIMESTAMP '2022-01-13T20:50:07.12345Z', '2022-08-13',3,2, '2022-08-16',3,2)
+INSERT INTO tb_exchange_temporary(id,created_at, dt_start, Employee_generator_id, dt_expected,expedient,state) VALUES (3,TIMESTAMP '2022-01-13T20:50:07.12345Z', '2022-08-13',10, '2022-08-16',2,3)
+INSERT INTO tb_exchange_temporary(id,created_at, dt_start, Employee_generator_id, dt_expected,expedient,state) VALUES (4,TIMESTAMP '2022-01-13T20:50:07.12345Z', '2022-08-13',8, '2022-08-16',1,4)
 
 
 INSERT INTO tb_request(id, created_at, dt_proposed_start, dt_proposed_end, dt_end, state, employee_id, exchange_id) VALUES (1, TIMESTAMP '2022-01-13T20:50:07.12345Z',  '2022-08-13', '2022-08-16', null, 1, 7, 3);

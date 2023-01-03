@@ -5,23 +5,23 @@ import br.com.grupotsm.EmployeeControl.DTO.request.RequestDTO;
 import br.com.grupotsm.EmployeeControl.entities.Exchange;
 import br.com.grupotsm.EmployeeControl.entities.ExchangeTemporary;
 import br.com.grupotsm.EmployeeControl.entities.enums.ExpedientType;
+import br.com.grupotsm.EmployeeControl.entities.enums.ExchangeState;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ExchangeDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private long id;
-
     private LocalDateTime createdAt;
     private LocalDate dtStart;
     private LocalDate dtExpected;
     private LocalDate dtEnd;
     private ExpedientType expedient;
+    private ExchangeState state;
     private EmployeeShortDTO employeeGenerator;
     private EmployeeShortDTO employeeExchanged;
     private List<RequestDTO> requests;
@@ -29,29 +29,30 @@ public class ExchangeDTO implements Serializable {
     public ExchangeDTO() {
     }
 
-    public ExchangeDTO(long id, LocalDateTime createdAt, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, ExpedientType expedient, EmployeeShortDTO employeeGenerator, EmployeeShortDTO employeeExchanged, List<RequestDTO> requests) {
+    public ExchangeDTO(long id, LocalDateTime createdAt, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, ExpedientType expedient, ExchangeState state, EmployeeShortDTO employeeGenerator, EmployeeShortDTO employeeExchanged, List<RequestDTO> requests) {
         this.id = id;
         this.createdAt = createdAt;
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
         this.dtEnd = dtEnd;
         this.expedient = expedient;
+        this.state = state;
         this.employeeGenerator = employeeGenerator;
         this.employeeExchanged = employeeExchanged;
         this.requests = requests;
     }
-    public ExchangeDTO(Exchange obj){
-        id = obj.getId();
-        createdAt = obj.getCreatedAt();
-        dtStart = obj.getDtStart();
-        expedient = obj.getExpedient();
-        employeeGenerator = new EmployeeShortDTO(obj.getEmployeeGenerator());
-        employeeExchanged = new EmployeeShortDTO(obj.getEmployeeExchanged());
-        requests = obj.getRequests().stream().map(RequestDTO::new).collect(Collectors.toList());
+    public ExchangeDTO(Exchange obj) {
+        this.id = obj.getId();
+        this.createdAt = obj.getCreatedAt();
+        this.dtStart = obj.getDtStart();
+        this.expedient = obj.getExpedient();
+        this.state = obj.getState();
+        this.employeeGenerator = new EmployeeShortDTO(obj.getEmployeeGenerator());
+        this.employeeExchanged = obj.getEmployeeExchanged() != null ? new EmployeeShortDTO(obj.getEmployeeExchanged()): null;
+        this.requests = requests;
         if(obj instanceof ExchangeTemporary) {
-            ExchangeTemporary tempObj = (ExchangeTemporary) obj;
-            dtExpected = tempObj.getDtExpected();
-            dtEnd = tempObj.getDtEnd();
+            this.dtExpected = ((ExchangeTemporary) obj).getDtExpected();
+            this.dtEnd = ((ExchangeTemporary) obj).getDtEnd();
         }
     }
 
@@ -95,12 +96,20 @@ public class ExchangeDTO implements Serializable {
         this.dtEnd = dtEnd;
     }
 
-    public ExpedientType getExpedient() {
-        return expedient;
+    public String getExpedient() {
+        return expedient.getDescription();
     }
 
     public void setExpedient(ExpedientType expedient) {
         this.expedient = expedient;
+    }
+
+    public String getState() {
+        return state.getName();
+    }
+
+    public void setState(ExchangeState state) {
+        this.state = state;
     }
 
     public EmployeeShortDTO getEmployeeGenerator() {
@@ -123,4 +132,7 @@ public class ExchangeDTO implements Serializable {
         return requests;
     }
 
+    public void setRequests(List<RequestDTO> requests) {
+        this.requests = requests;
+    }
 }

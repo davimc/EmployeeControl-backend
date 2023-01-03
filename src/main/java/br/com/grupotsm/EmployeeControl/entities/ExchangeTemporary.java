@@ -1,11 +1,11 @@
 package br.com.grupotsm.EmployeeControl.entities;
 
 import br.com.grupotsm.EmployeeControl.entities.enums.ExpedientType;
+import br.com.grupotsm.EmployeeControl.entities.enums.ExchangeState;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_exchange_temporary")
@@ -16,8 +16,8 @@ public class ExchangeTemporary extends Exchange{
     public ExchangeTemporary() {
     }
 
-    public ExchangeTemporary(Long id, LocalDate dtStart, ExpedientType expedient, Employee employeeGenerator, Employee employeeExchanged, LocalDate dtExpected, LocalDate dtEnd) {
-        super(id, dtStart, expedient, employeeGenerator, employeeExchanged);
+    public ExchangeTemporary(Long id, LocalDate dtStart, ExpedientType expedient, ExchangeState state, Employee employeeGenerator, Employee employeeExchanged, LocalDate dtExpected, LocalDate dtEnd) {
+        super(id, dtStart, expedient, state, employeeGenerator, employeeExchanged);
         this.dtExpected = dtExpected;
         this.dtEnd = dtEnd;
     }

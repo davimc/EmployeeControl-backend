@@ -20,12 +20,12 @@ public class ExchangeService {
     private ExchangeRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<ExchangeDTO> findAllActives(Pageable pageable, String min, String max, boolean justActives) {
+    public Page<ExchangeDTO> findAllActives(Pageable pageable, String min, String max, Integer state, String name) {
         LocalDate dtMin = min.equals("") ? LocalDate.now().minusYears(1)
                 : LocalDate.parse(min);
         LocalDate dtMax = max.equals("") ? LocalDate.now()
                 : LocalDate.parse(max);
-        return repository.findAllActives(pageable, dtMin, dtMax, justActives)
+        return repository.findAllActives(pageable, dtMin, dtMax, state, name)
                 .map(ExchangeDTO::new);
     }
     @Transactional(readOnly = true)
