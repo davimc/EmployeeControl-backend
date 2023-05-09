@@ -22,14 +22,15 @@ public class ExchangeDTO implements Serializable {
     private LocalDate dtEnd;
     private ExpedientType expedient;
     private ExchangeState state;
-    private EmployeeShortDTO employeeGenerator;
-    private EmployeeShortDTO employeeExchanged;
+    private String employeeGenerator;
+    private String employeeExchanged;
+
     private List<RequestDTO> requests;
 
     public ExchangeDTO() {
     }
 
-    public ExchangeDTO(long id, LocalDateTime createdAt, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, ExpedientType expedient, ExchangeState state, EmployeeShortDTO employeeGenerator, EmployeeShortDTO employeeExchanged, List<RequestDTO> requests) {
+    public ExchangeDTO(long id, LocalDateTime createdAt, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, ExpedientType expedient, ExchangeState state, String employeeGenerator, String employeeExchanged, List<RequestDTO> requests) {
         this.id = id;
         this.createdAt = createdAt;
         this.dtStart = dtStart;
@@ -47,8 +48,8 @@ public class ExchangeDTO implements Serializable {
         this.dtStart = obj.getDtStart();
         this.expedient = obj.getExpedient();
         this.state = obj.getState();
-        this.employeeGenerator = new EmployeeShortDTO(obj.getEmployeeGenerator());
-        this.employeeExchanged = obj.getEmployeeExchanged() != null ? new EmployeeShortDTO(obj.getEmployeeExchanged()): null;
+        this.employeeGenerator = obj.getEmployeeGenerator().getName();
+        this.employeeExchanged = obj.getEmployeeExchanged() != null ? obj.getEmployeeExchanged().getName(): null;
         this.requests = requests;
         if(obj instanceof ExchangeTemporary) {
             this.dtExpected = ((ExchangeTemporary) obj).getDtExpected();
@@ -112,20 +113,20 @@ public class ExchangeDTO implements Serializable {
         this.state = state;
     }
 
-    public EmployeeShortDTO getEmployeeGenerator() {
+    public String getEmployeeGenerator() {
         return employeeGenerator;
     }
 
     public void setEmployeeGenerator(EmployeeShortDTO employeeGenerator) {
-        this.employeeGenerator = employeeGenerator;
+        this.employeeGenerator = employeeGenerator.getName();
     }
 
-    public EmployeeShortDTO getEmployeeExchanged() {
+    public String getEmployeeExchanged() {
         return employeeExchanged;
     }
 
     public void setEmployeeExchanged(EmployeeShortDTO employeeExchanged) {
-        this.employeeExchanged = employeeExchanged;
+        this.employeeExchanged = employeeExchanged.getName();
     }
 
     public List<RequestDTO> getRequests() {
