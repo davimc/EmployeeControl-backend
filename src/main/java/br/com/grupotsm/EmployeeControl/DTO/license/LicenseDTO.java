@@ -1,6 +1,7 @@
 package br.com.grupotsm.EmployeeControl.DTO.license;
 
 import br.com.grupotsm.EmployeeControl.entities.License;
+import br.com.grupotsm.EmployeeControl.entities.enums.ReasonType;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -8,7 +9,6 @@ import java.time.LocalDate;
 
 public class LicenseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Long id;
     private Long employeeId;
     private String employeeName;
@@ -16,12 +16,13 @@ public class LicenseDTO implements Serializable {
     private LocalDate dtStart;
     private LocalDate dtExpected;
     private LocalDate dtEnd;
+    private String reason;
 
 
     public LicenseDTO() {
     }
 
-    public LicenseDTO(Long id, Long employeeId, String employeeName, LocalDate created, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd) {
+    public LicenseDTO(Long id, Long employeeId, String employeeName, LocalDate created, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, Integer reason) {
         this.id = id;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
@@ -29,6 +30,7 @@ public class LicenseDTO implements Serializable {
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
         this.dtEnd = dtEnd;
+        this.reason = ReasonType.toEnum(reason).getDescription();
     }
 
     public LicenseDTO(License obj) {
@@ -39,6 +41,7 @@ public class LicenseDTO implements Serializable {
         dtStart = obj.getDtStart();
         dtExpected = obj.getDtExpected();
         dtEnd = obj.getDtEnd();
+        reason = obj.getReason().getDescription();
     }
 
     public Long getId() {
@@ -95,5 +98,13 @@ public class LicenseDTO implements Serializable {
 
     public void setDtEnd(LocalDate dtEnd) {
         this.dtEnd = dtEnd;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

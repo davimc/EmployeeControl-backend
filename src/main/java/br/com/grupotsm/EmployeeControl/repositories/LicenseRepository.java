@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @Repository
 public interface LicenseRepository extends JpaRepository<License, Long> {
-    @Query("SELECT new br.com.grupotsm.EmployeeControl.DTO.license.LicenseDTO(obj.id, obj.employee.id, obj.employee.name, obj.created, obj.dtStart, obj.dtExpected, obj.dtEnd) " +
+    @Query("SELECT new br.com.grupotsm.EmployeeControl.DTO.license.LicenseDTO(obj.id, obj.employee.id, obj.employee.name, obj.created, obj.dtStart, obj.dtExpected, obj.dtEnd, obj.reason) " +
             "FROM License obj " +
             "WHERE (:justActives = False OR CURRENT_DATE BETWEEN obj.dtStart AND obj.dtExpected) " +
             "AND obj.dtStart BETWEEN :dtMin AND :dtMax")
