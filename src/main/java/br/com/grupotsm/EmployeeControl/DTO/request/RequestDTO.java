@@ -17,18 +17,19 @@ public class RequestDTO implements Serializable {
     private LocalDate dtEnd;
     private String state;
 
-    private EmployeeShortDTO Employee;
+    private String employee;
 
     public RequestDTO() {
     }
 
-    public RequestDTO(Long id, LocalDateTime createdAt, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, String state) {
+    public RequestDTO(Long id, LocalDateTime createdAt, LocalDate dtStart, LocalDate dtExpected, LocalDate dtEnd, String state, String employee) {
         this.id = id;
         this.createdAt = createdAt;
         this.dtStart = dtStart;
         this.dtExpected = dtExpected;
         this.dtEnd = dtEnd;
         this.state = state;
+        this.employee = employee;
     }
     public RequestDTO(Request obj) {
         this.id = obj.getId();
@@ -37,6 +38,7 @@ public class RequestDTO implements Serializable {
         this.dtExpected = obj.getDtAcceptedEnd() == null? obj.getDtProposedEnd() : obj.getDtAcceptedEnd();
         this.dtEnd = obj.getDtEnd();
         this.state = obj.getState().getDescription();
+        employee = obj.getEmployee().getName();
     }
 
     public Long getId() {
@@ -85,5 +87,13 @@ public class RequestDTO implements Serializable {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String employee) {
+        this.employee = employee;
     }
 }
