@@ -9,8 +9,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://emplocontroll.netlify.app/")
-                .allowedOrigins("http://localhost:5173/")
+                .allowedOrigins("https://emplocontroll.netlify.app/","http://localhost:5173/")
                 .allowedMethods("GET","POST","PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
     }
 }
