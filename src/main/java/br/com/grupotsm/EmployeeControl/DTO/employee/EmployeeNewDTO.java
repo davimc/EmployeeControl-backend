@@ -1,4 +1,4 @@
-package br.com.grupotsm.EmployeeControl.DTO;
+package br.com.grupotsm.EmployeeControl.DTO.employee;
 
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,6 +8,9 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class EmployeeNewDTO {
+
+    @NotNull(message = "It is necessary to inform a name")
+    @Size(min = 5, max = 32, message = "The password field needs to be filled in between 2 to 32 characters")
     private String name;
     private Character gender;
 
@@ -18,14 +21,14 @@ public class EmployeeNewDTO {
     @CPF(message = "CPF rule is not being fulfilled")
     private String cpf;
     @NotBlank(message = "It is necessary to inform a password")
-    @Size(min = 5, max = 32, message = "The password field needs to be filled in between 5 to 25 characters")
+    @Size(min = 5, max = 25, message = "The password field needs to be filled in between 5 to 25 characters")
     private String password;
 
     @NotNull(message = "It is necessary to inform a birthdate")
     @Past(message = "Date of birth cannot be current or future")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
-    @NotNull(message = "It is necessary to inform a birthdate")
+    @NotNull(message = "It is necessary to inform a admission date")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate admissionDate;
 
