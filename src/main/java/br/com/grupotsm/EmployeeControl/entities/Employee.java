@@ -21,7 +21,7 @@ public class Employee implements UserDetails, Serializable {
     private Long id;
     private String name;
     @Column(length = 1)
-    private char gender;
+    private Character gender;
     private String email;
     @Column(unique = true)
     private String cpf;
@@ -54,7 +54,7 @@ public class Employee implements UserDetails, Serializable {
     public Employee() {
     }
 
-    public Employee(Long id, String name, char gender, String email, String cpf, String password, LocalDate dtAdmission, LocalDate birthDate, Store store) {
+    public Employee(Long id, String name, Character gender, String email, String cpf, String password, LocalDate dtAdmission, LocalDate birthDate, Store store) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -67,7 +67,7 @@ public class Employee implements UserDetails, Serializable {
         this.storeCurrent = store;
     }
 
-    public Employee(Long id, String name, char gender, String email, String cpf, String password, LocalDate dtAdmission, LocalDate birthDate, Store storeOrigin, Store storeCurrent) {
+    public Employee(Long id, String name, Character gender, String email, String cpf, String password, LocalDate dtAdmission, LocalDate birthDate, Store storeOrigin, Store storeCurrent) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -96,11 +96,11 @@ public class Employee implements UserDetails, Serializable {
         this.name = name;
     }
 
-    public char getGender() {
+    public Character getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(Character gender) {
         this.gender = gender;
     }
 

@@ -26,7 +26,7 @@ public class StoreService {
     private StoreRepository repository;
 
     @Transactional(readOnly = true)
-    private Store findById(Long id) {
+    protected Store findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, Store.class));
     }
     @Transactional(readOnly = true)
@@ -41,10 +41,12 @@ public class StoreService {
         return new StoreDTO(obj);
     }
 
+    @Transactional(readOnly = true)
     public List<StoreType> getTypes() {
         return Arrays.stream(StoreType.values()).toList();
     }
 
+    @Transactional
     public StoreDTO insert(StoreNewDTO newDTO) {
         Store obj = newDTO.toModel();
 
@@ -52,6 +54,7 @@ public class StoreService {
         return new StoreDTO(obj);
     }
 
+    @Transactional
     public StoreUpdateDTO update(Long id, StoreUpdateDTO dto) {
         Store obj = findById(id);
         dto.toModel(obj);
@@ -60,6 +63,7 @@ public class StoreService {
         return new StoreUpdateDTO(obj);
     }
 
+    @Transactional
     public void delete(Long id) {
         try {
             Store obj = findById(id);

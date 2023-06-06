@@ -1,8 +1,10 @@
 package br.com.grupotsm.EmployeeControl.services;
 
+import br.com.grupotsm.EmployeeControl.DTO.EmployeeNewDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
+import br.com.grupotsm.EmployeeControl.entities.Store;
 import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
 import br.com.grupotsm.EmployeeControl.services.exceptions.DatabaseException;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
@@ -28,8 +30,11 @@ public class EmployeeService implements UserDetailsService {
     @Autowired
     private EmployeeRepository repository;
 
+    @Autowired
+    private StoreService storeService;
+
     @Transactional(readOnly = true)
-    private Employee findById(Long id) {
+    protected Employee findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, EmployeeService.class));
 
     }
@@ -65,5 +70,16 @@ public class EmployeeService implements UserDetailsService {
         }catch (DataIntegrityViolationException e) {
             throw new DatabaseException("There is a dependency");
         }
+    }
+
+    @Transactional
+    public EmployeeShortDTO insert(EmployeeNewDTO newDTO) {
+        Employee obj = newDTO.toModel();
+        Store s = storeService.findById(newDTO.getStoreId());
+        obj.setStoreBeloging(s);
+        obj.setStoreCurrent(s);
+        obj = repository.save(obj);
+
+        return new EmployeeShortDTO(obj);
     }
 }

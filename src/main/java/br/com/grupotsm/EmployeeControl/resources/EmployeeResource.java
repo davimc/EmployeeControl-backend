@@ -1,5 +1,6 @@
 package br.com.grupotsm.EmployeeControl.resources;
 
+import br.com.grupotsm.EmployeeControl.DTO.EmployeeNewDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
 import br.com.grupotsm.EmployeeControl.services.EmployeeService;
@@ -8,6 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/employees")
@@ -30,6 +35,14 @@ public class EmployeeResource {
         return ResponseEntity.ok().body(service.findDTOById(id));
     }
 
+    @PostMapping
+    public ResponseEntity<EmployeeShortDTO> insert(@RequestBody @Valid EmployeeNewDTO newDTO) {
+        EmployeeShortDTO dto = service.insert(newDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(dto);
+    }
     @DeleteMapping(path = "{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         service.delete(id);
