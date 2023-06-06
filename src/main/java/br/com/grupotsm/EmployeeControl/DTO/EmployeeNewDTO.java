@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 public class EmployeeNewDTO {
     private String name;
-    //todo verificar como enviar a opção pra não informado
     private Character gender;
 
     @NotNull(message = "It is necessary to inform a email")
