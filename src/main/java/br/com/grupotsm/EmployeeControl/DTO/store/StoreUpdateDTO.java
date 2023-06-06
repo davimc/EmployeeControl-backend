@@ -10,18 +10,30 @@ import java.io.Serializable;
 
 public class StoreUpdateDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    private Long id;
     @Size(message = "It is necessary to inform a name", min = 3, max = 25)
     private String name;
     @Positive(message = "This field need to be positive")
     private Integer type;
+    private String typeName;
 
     public StoreUpdateDTO() {
     }
 
     public StoreUpdateDTO(Long id, String name, Integer type) {
+        this.id = id;
         this.name = name;
         this.type = type;
+    }
+    public StoreUpdateDTO(Store obj) {
+        id = obj.getId();
+        name = obj.getName();
+        typeName = obj.getType().getName();
+    }
 
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -32,12 +44,13 @@ public class StoreUpdateDTO implements Serializable {
         this.name = name;
     }
 
-    public Integer getType() {
-        return type;
-    }
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getTypeName() {
+        return typeName;
     }
 
     public Store toModel(Store obj) {

@@ -40,7 +40,6 @@ public class StoreService {
         return new StoreDTO(obj);
     }
 
-    // TODO implementar no frontend
     public List<StoreType> getTypes() {
         return Arrays.stream(StoreType.values()).toList();
     }
@@ -48,12 +47,15 @@ public class StoreService {
     public StoreDTO insert(StoreNewDTO newDTO) {
         Store obj = newDTO.toModel();
 
-        return save(obj);
+        obj = repository.save(obj);
+        return new StoreDTO(obj);
     }
 
-    private StoreDTO save(Store obj) {
+    public StoreUpdateDTO update(Long id, StoreUpdateDTO dto) {
+        Store obj = findById(id);
+        dto.toModel(obj);
         obj = repository.save(obj);
 
-        return new StoreDTO(obj);
+        return new StoreUpdateDTO(obj);
     }
 }

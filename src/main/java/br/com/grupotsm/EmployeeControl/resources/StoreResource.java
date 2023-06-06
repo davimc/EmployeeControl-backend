@@ -42,4 +42,9 @@ public class StoreResource {
 
         return ResponseEntity.created(uri).body(dto);
     }
+
+    @PutMapping(path = "{id}")
+    public ResponseEntity<StoreUpdateDTO> update(@PathVariable Long id, @RequestBody @Valid StoreUpdateDTO updateDTO) {
+        return ResponseEntity.accepted().body(service.update(id, updateDTO));
+    }
 }
