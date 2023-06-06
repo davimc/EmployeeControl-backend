@@ -47,4 +47,10 @@ public class StoreResource {
     public ResponseEntity<StoreUpdateDTO> update(@PathVariable Long id, @RequestBody @Valid StoreUpdateDTO updateDTO) {
         return ResponseEntity.accepted().body(service.update(id, updateDTO));
     }
+
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

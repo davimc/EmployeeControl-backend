@@ -6,15 +6,16 @@ import br.com.grupotsm.EmployeeControl.DTO.store.StoreUpdateDTO;
 import br.com.grupotsm.EmployeeControl.entities.Store;
 import br.com.grupotsm.EmployeeControl.entities.enums.StoreType;
 import br.com.grupotsm.EmployeeControl.repositories.StoreRepository;
+import br.com.grupotsm.EmployeeControl.services.exceptions.DatabaseException;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -57,5 +58,14 @@ public class StoreService {
         obj = repository.save(obj);
 
         return new StoreUpdateDTO(obj);
+    }
+
+    public void delete(Long id) {
+        try {
+            Store obj = findById(id);
+            repository.delete(obj);
+        }catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("There is a dependency");
+        }
     }
 }
