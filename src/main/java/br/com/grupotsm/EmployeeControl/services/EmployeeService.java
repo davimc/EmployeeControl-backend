@@ -1,6 +1,7 @@
 package br.com.grupotsm.EmployeeControl.services;
 
-import br.com.grupotsm.EmployeeControl.DTO.EmployeeNewDTO;
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeNewDTO;
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeUpdateDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
@@ -78,6 +79,14 @@ public class EmployeeService implements UserDetailsService {
         Store s = storeService.findById(newDTO.getStoreId());
         obj.setStoreBeloging(s);
         obj.setStoreCurrent(s);
+        obj = repository.save(obj);
+
+        return new EmployeeShortDTO(obj);
+    }
+
+    public EmployeeShortDTO update(Long id, EmployeeUpdateDTO updateDTO) {
+        Employee obj = findById(id);
+        obj = updateDTO.toModel(obj);
         obj = repository.save(obj);
 
         return new EmployeeShortDTO(obj);

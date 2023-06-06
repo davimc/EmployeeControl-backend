@@ -1,8 +1,9 @@
 package br.com.grupotsm.EmployeeControl.resources;
 
-import br.com.grupotsm.EmployeeControl.DTO.EmployeeNewDTO;
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeNewDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeUpdateDTO;
 import br.com.grupotsm.EmployeeControl.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,6 +43,11 @@ public class EmployeeResource {
                 .buildAndExpand(dto.getId()).toUri();
 
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(path = "{id}")
+    public ResponseEntity<EmployeeShortDTO> update(@PathVariable Long id, @RequestBody @Valid EmployeeUpdateDTO updateDTO) {
+        return ResponseEntity.accepted().body(service.update(id, updateDTO));
     }
     @DeleteMapping(path = "{id}")
     public ResponseEntity delete(@PathVariable Long id) {
