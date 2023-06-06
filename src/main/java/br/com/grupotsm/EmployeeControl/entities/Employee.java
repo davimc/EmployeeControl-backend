@@ -33,10 +33,10 @@ public class Employee implements UserDetails, Serializable {
     @Column(columnDefinition = "DATE")
     private LocalDate birthDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "store_beloging_id")
     private Store storeBeloging;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "store_current_id")
     private Store storeCurrent;
 

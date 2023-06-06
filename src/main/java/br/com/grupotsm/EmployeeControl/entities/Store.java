@@ -17,10 +17,10 @@ public class Store implements Serializable {
     private String name;
     private Integer type;
 
-    @OneToMany(mappedBy = "storeBeloging", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "storeBeloging", cascade = CascadeType.MERGE)
     private List<Employee> employeesBeloging = new ArrayList<>();
 
-    @OneToMany(mappedBy = "storeCurrent", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "storeCurrent", cascade = CascadeType.MERGE)
     private List<Employee> employeesCurrent = new ArrayList<>();
     public Store() {
     }

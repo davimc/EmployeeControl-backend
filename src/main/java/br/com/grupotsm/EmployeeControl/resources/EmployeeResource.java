@@ -2,15 +2,12 @@ package br.com.grupotsm.EmployeeControl.resources;
 
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
-import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -30,6 +27,12 @@ public class EmployeeResource {
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDTO> findById(@PathVariable Long id) {
 
-        return ResponseEntity.ok().body(service.findById(id));
+        return ResponseEntity.ok().body(service.findDTOById(id));
+    }
+
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

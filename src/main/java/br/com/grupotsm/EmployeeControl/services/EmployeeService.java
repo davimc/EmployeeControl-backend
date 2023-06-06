@@ -4,10 +4,12 @@ import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeDTO;
 import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.repositories.EmployeeRepository;
+import br.com.grupotsm.EmployeeControl.services.exceptions.DatabaseException;
 import br.com.grupotsm.EmployeeControl.services.exceptions.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,16 +29,20 @@ public class EmployeeService implements UserDetailsService {
     private EmployeeRepository repository;
 
     @Transactional(readOnly = true)
+    private Employee findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, EmployeeService.class));
+
+    }
+
+    @Transactional(readOnly = true)
     public Page<EmployeeShortDTO> findAll(Pageable pageable, boolean isAvailable) {
         Page<Employee> obj = repository.findAllActives(pageable);
 
         return obj.map(EmployeeShortDTO::new);
     }
     @Transactional(readOnly = true)
-    public EmployeeDTO findById(Long id) {
-        Employee obj = repository.findById(id).orElseThrow(() -> {
-            throw new ObjectNotFoundException(id, Employee.class);
-        });
+    public EmployeeDTO findDTOById(Long id) {
+        Employee obj = findById(id);
         return new EmployeeDTO(obj);
     }
 
@@ -53,5 +59,11 @@ public class EmployeeService implements UserDetailsService {
     }
 
 
-
+    public void delete(Long id) {
+        try{
+            repository.delete(findById(id));
+        }catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("There is a dependency");
+        }
+    }
 }
