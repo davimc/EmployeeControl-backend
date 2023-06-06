@@ -1,35 +1,40 @@
 package br.com.grupotsm.EmployeeControl.DTO.store;
 
+import br.com.grupotsm.EmployeeControl.DTO.employee.EmployeeShortDTO;
 import br.com.grupotsm.EmployeeControl.entities.Store;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StoreDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String name;
-    private String type;
-    private Integer qttBeloging;
-    private Integer qttCurrent;
+    private String typeName;
+
+    private List<EmployeeShortDTO> employeesBeloging = new ArrayList<>();
+    private List<EmployeeShortDTO> employeesCurrent = new ArrayList<>();
 
     public StoreDTO() {
     }
 
-    public StoreDTO(Long id, String name, String type, Integer qttBeloging, Integer qttCurrent) {
+    public StoreDTO(Long id, String name, String typeName, List<EmployeeShortDTO> employeesBeloging, List<EmployeeShortDTO> employeesCurrent) {
         this.id = id;
         this.name = name;
-        this.type = type;
-        this.qttBeloging = qttBeloging;
-        this.qttCurrent = qttCurrent;
+        this.typeName = typeName;
+        this.employeesBeloging = employeesBeloging;
+        this.employeesCurrent = employeesCurrent;
     }
 
     public StoreDTO(Store obj) {
-        this.id = obj.getId();
-        this.name = obj.getName();
-        this.type = obj.getType().getName();
-        qttBeloging = obj.getEmployeesBeloging().size();
-        qttCurrent = obj.getEmployeesCurrent().size();
+        id = obj.getId();
+        name = obj.getName();
+        typeName = obj.getType().getName();
+        employeesCurrent = obj.getEmployeesCurrent().stream().map(EmployeeShortDTO::new).collect(Collectors.toList());
+        employeesBeloging = obj.getEmployeesBeloging().stream().map(EmployeeShortDTO::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -48,27 +53,27 @@ public class StoreDTO implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
-    public Integer getQttBeloging() {
-        return qttBeloging;
+    public List<EmployeeShortDTO> getEmployeesBeloging() {
+        return employeesBeloging;
     }
 
-    public void setQttBeloging(Integer qttBeloging) {
-        this.qttBeloging = qttBeloging;
+    public void setEmployeesBeloging(List<EmployeeShortDTO> employeesBeloging) {
+        this.employeesBeloging = employeesBeloging;
     }
 
-    public Integer getQttCurrent() {
-        return qttCurrent;
+    public List<EmployeeShortDTO> getEmployeesCurrent() {
+        return employeesCurrent;
     }
 
-    public void setQttCurrent(Integer qttCurrent) {
-        this.qttCurrent = qttCurrent;
+    public void setEmployeesCurrent(List<EmployeeShortDTO> employeesCurrent) {
+        this.employeesCurrent = employeesCurrent;
     }
 }
