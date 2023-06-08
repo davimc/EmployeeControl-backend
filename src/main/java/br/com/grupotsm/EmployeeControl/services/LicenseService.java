@@ -1,6 +1,7 @@
 package br.com.grupotsm.EmployeeControl.services;
 
 import br.com.grupotsm.EmployeeControl.DTO.license.LicenseDTO;
+import br.com.grupotsm.EmployeeControl.DTO.license.LicenseNewDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.entities.License;
 import br.com.grupotsm.EmployeeControl.repositories.LicenseRepository;
@@ -12,13 +13,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 
 @Service
 public class LicenseService {
     @Autowired
     private LicenseRepository repository;
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Transactional(readOnly = true)
+    protected License findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, License.class));
+    }
 
     @Transactional(readOnly = true)
     public Page<LicenseDTO> findAllActives(Pageable pageable, String min, String max, boolean justActives) {
@@ -31,10 +38,26 @@ public class LicenseService {
         return dto;
     }
     @Transactional(readOnly = true)
-    public LicenseDTO findById(Long id) {
-        License obj = repository.findById(id).orElseThrow(() -> {
-            throw new ObjectNotFoundException(id, Employee.class);
-        });
+    public LicenseDTO findDTOById(Long id) {
+        License obj = findById(id);
         return new LicenseDTO(obj);
     }
+
+    //TODO controlar para que não haja uma licença em cima de outra
+    public LicenseDTO insert(LicenseNewDTO newDTO) {
+        Employee employee = employeeService.findById(newDTO.getEmployeeId());
+        License obj = newDTO.toModel(employee);
+
+        obj = repository.save(obj);
+        return new LicenseDTO(obj);
+    }
+
+    //TODO controlar para que não haja uma licença em cima de outra
+    /*public LicenseDTO update(Long id, LicenseUpdateDTO updateDTO) {
+        License obj = findById(id);
+        dto.toModel(obj);
+        obj = repository.save(obj);
+
+        return new LicenseUpdateDTO(obj);
+    }*/
 }
