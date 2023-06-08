@@ -45,4 +45,10 @@ public class LicenseResource {
     public ResponseEntity<LicenseDTO> update(@PathVariable Long id, @RequestBody @Valid LicenseUpdateDTO updateDTO) {
         return ResponseEntity.accepted().body(service.update(id, updateDTO));
     }
+
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

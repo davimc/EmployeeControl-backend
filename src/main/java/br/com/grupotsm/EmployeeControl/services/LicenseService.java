@@ -66,4 +66,9 @@ public class LicenseService {
 
         return new LicenseDTO(obj);
     }
+
+    public void delete(Long id) {
+        License obj = findById(id);
+        repository.delete(obj);
+    }
 }
