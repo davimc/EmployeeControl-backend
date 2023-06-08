@@ -2,6 +2,7 @@ package br.com.grupotsm.EmployeeControl.services;
 
 import br.com.grupotsm.EmployeeControl.DTO.license.LicenseDTO;
 import br.com.grupotsm.EmployeeControl.DTO.license.LicenseNewDTO;
+import br.com.grupotsm.EmployeeControl.DTO.license.LicenseUpdateDTO;
 import br.com.grupotsm.EmployeeControl.entities.Employee;
 import br.com.grupotsm.EmployeeControl.entities.License;
 import br.com.grupotsm.EmployeeControl.repositories.LicenseRepository;
@@ -53,11 +54,16 @@ public class LicenseService {
     }
 
     //TODO controlar para que não haja uma licença em cima de outra
-    /*public LicenseDTO update(Long id, LicenseUpdateDTO updateDTO) {
+
+    /**TODO fazer tratamento para que um licença não seja alterada com dias incompatíveis
+     * (férias poder ser alterada por falta e nisso a pessoa ficar com 30 dias de falta no sistema)
+     * provavelmente o jeito mais lógico seria retirar a opção de poder alterar a razão da licença
+     */
+    public LicenseDTO update(Long id, LicenseUpdateDTO dto) {
         License obj = findById(id);
         dto.toModel(obj);
         obj = repository.save(obj);
 
-        return new LicenseUpdateDTO(obj);
-    }*/
+        return new LicenseDTO(obj);
+    }
 }

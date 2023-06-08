@@ -2,6 +2,7 @@ package br.com.grupotsm.EmployeeControl.resources;
 
 import br.com.grupotsm.EmployeeControl.DTO.license.LicenseDTO;
 import br.com.grupotsm.EmployeeControl.DTO.license.LicenseNewDTO;
+import br.com.grupotsm.EmployeeControl.DTO.license.LicenseUpdateDTO;
 import br.com.grupotsm.EmployeeControl.services.LicenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,8 +41,8 @@ public class LicenseResource {
         return ResponseEntity.created(uri).body(dto);
     }
 
-    /*@PutMapping(path = "{id}")
+    @PutMapping(path = "{id}")
     public ResponseEntity<LicenseDTO> update(@PathVariable Long id, @RequestBody @Valid LicenseUpdateDTO updateDTO) {
         return ResponseEntity.accepted().body(service.update(id, updateDTO));
-    }*/
+    }
 }
